@@ -1,20 +1,37 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- container -->
+  <ion-list>
+    <!-- student names and ids -->
+    <ion-item>
+      <ion-label color="primary"> Student 1: Bahaa Hani 202009254 </ion-label> <br>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label color="primary"> Student 2: Maryam Kamashki 202002021 </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- another container to display all members in the list -->
+  <ion-list *ngFor="let m of DataSrv.member; let i = index">
+    <ion-item routerLink="/detail/{{i}}">
+      <ion-label>Name: {{ m.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Button to go to Add New Member page-->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="primary" routerLink="/add">
+      <ion-icon name ='add'></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

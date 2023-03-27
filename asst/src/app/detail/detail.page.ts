@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailPage implements OnInit {
 
-  constructor() { }
+  public index = -1;
 
-  ngOnInit() {
+  constructor(public ActiveRoute:ActivatedRoute, public DataSrv: DataService) 
+  {
+    // gets the index from the url
+    this.index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
   }
+
+  ngOnInit( ) 
+  { }
 
 }

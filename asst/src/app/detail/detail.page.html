@@ -1,9 +1,46 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>detail</ion-title>
+  <ion-toolbar color="secondary">
+    <!-- back button to go home (pervious page) -->
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      Detail
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- container -->
+  <ion-list>
+    <!-- member detail -->
+    <ion-item>
+      <ion-label>name: {{ DataSrv.member[index].name }}</ion-label>
+    </ion-item>
 
+    <ion-item>
+      <ion-label>age: {{ DataSrv.member[index].age }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>gender: {{ DataSrv.member[index].gender }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>phone: {{ DataSrv.member[index].phone }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>diet: {{ DataSrv.member[index].diet }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>subscription plan: {{ DataSrv.member[index].subPlan }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>total fees: {{ DataSrv.member[index].TotalFees }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
