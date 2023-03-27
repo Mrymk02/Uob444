@@ -16,17 +16,17 @@
   <ion-list>
     <!-- form -->
     <ion-item>
-      <ion-label position="floating">Name</ion-label>
+      <ion-label position="floating">Name:</ion-label>
       <ion-input type="text" [(ngModel)]="name" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Age </ion-label>
+      <ion-label position="floating">Age:</ion-label>
       <ion-input type="number" [(ngModel)]="age" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Gender</ion-label>
+      <ion-label position="floating">Gender:</ion-label>
       <ion-select [(ngModel)]="gender" required>
         <ion-select-option value="Male">Male</ion-select-option>
         <ion-select-option value="Female">Female</ion-select-option>
@@ -34,21 +34,19 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Phone Number</ion-label>
+      <ion-label position="floating">Phone Number:</ion-label>
       <ion-input type="tel" [(ngModel)]="phone" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>
-        Diet Type
-      </ion-label>
+      <ion-label>Diet Type:</ion-label>
       <ion-select [(ngModel)]="DT" required>
         <ion-select-option *ngFor="let type of dietType; let i = index" value="{{i}}">{{type.name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>Subscription Plan</ion-label>
+      <ion-label>Subscription Plan:</ion-label>
       <ion-select [(ngModel)]="SP" required>
         <ion-select-option *ngFor="let plan of subPlan; let i = index" value="{{i}}">{{plan.name}}</ion-select-option>
       </ion-select>

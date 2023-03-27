@@ -21,7 +21,7 @@ export class AddPage implements OnInit {
   TF = 0;
 
   // an empty array of type ListOdMembers
-  newMember : ListOfMembers = {name:"", age: 0,  gender: "", phone: "", diet: "", subPlan: "", TotalFees: 0 };
+  newMember : ListOfMembers = {} as ListOfMembers;
 
   // an array for subscription plans
   subPlan = [
@@ -30,7 +30,7 @@ export class AddPage implements OnInit {
               { value: 500, name: '6 month' }
             ];
 
-  // an array for siet types
+  // an array for diet types
   dietType = [
               { value: 0, name: 'Normal Diet' },
               { value: 50, name: 'Low Carbs' },
@@ -48,7 +48,10 @@ export class AddPage implements OnInit {
     this.newMember.gender = this.gender;
     this.newMember.phone = this.phone;
     this.newMember.diet = this.dietType[this.DT].name;
+    this.newMember.dietVal = this.dietType[this.DT].value;
     this.newMember.subPlan = this.subPlan[this.SP].name;
+    this.newMember.subPlanVal = this.subPlan[this.SP].value;
+
     // calculating the total fees
     this.TF = this.subPlan[this.SP].value + this.dietType[this.DT].value;
     // storing total fees into the empty array
