@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { Meal } from '../models/meal';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-add-meal',
@@ -8,15 +8,16 @@ import { Meal } from '../models/meal';
   styleUrls: ['./add-meal.page.scss'],
 })
 export class AddMealPage {
-  title: string;
-  imageUrl: string;
-  ingredients: string;
-  dietType: string;
-  calories: number;
+  title: string = '';
+  imageUrl: string = '';
+  ingredients: string = '';
+  dietType: string = '';
+  calories: number = 0;
 
   constructor(
-    private navCtrl: NavController,
-    private alertCtrl: AlertController
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public DataSrv: DataService
   ) {}
 
   addMeal() {
