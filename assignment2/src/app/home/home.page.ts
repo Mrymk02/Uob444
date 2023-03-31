@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { AddPage } from '../add/add.page';
+// import { ModalController } from '@ionic/angular';
 import { DataService } from '../data.service';
-
 
 @Component({
   selector: 'app-home',
@@ -11,8 +9,7 @@ import { DataService } from '../data.service';
 })
 export class HomePage {
 
-  constructor(public ModalCtrl: ModalController, public DataSrv: DataService) 
-  {}
-
+  constructor( public DataSrv: DataService ) //, public ModalCtrl: ModalController
+  { }
 
 }
