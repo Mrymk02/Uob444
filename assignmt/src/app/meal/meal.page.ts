@@ -17,6 +17,10 @@ export class MealPage implements OnInit {
 
   public newMeal: Meal[] =[];
 
+  // show or hide view
+  public show: boolean = false;
+
+
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController
@@ -47,7 +51,7 @@ export class MealPage implements OnInit {
         text: 'View Meal',
         handler: () => 
         {     
-          this.viewMeal();
+          this.show = true;
         }
       },
       {
@@ -65,7 +69,7 @@ export class MealPage implements OnInit {
 
   viewMeal()
   {
-
+    this.show = !this.show;
   }
 
 }

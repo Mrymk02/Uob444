@@ -45,28 +45,47 @@
 
 
     <ion-button expand="block" (click)="addMeal()">Add Meal</ion-button>
-    <ion-button expand="block" (click)="viewMeal()">View Meal</ion-button>
+    <ion-button expand="block" (click)="viewMeal()">View/Hide Meal</ion-button>
   </ion-list>
 
-  <!-- <ion-list>
+  <ion-list *ngIf="show">
     <ion-list *ngFor="let m of newMeal">
 
-      <ion-label color="primary">Ingredients</ion-label>
-      <ion-item *ngFor="let e of m.ingredients">
-        <ion-label>{{ e }}</ion-label>
-      </ion-item>
+      <ion-list>
+        <ion-label color="primary">id</ion-label>
+        <ion-item>
+          <ion-label>{{ m.id }}</ion-label>
+        </ion-item>
 
-      <ion-label color="primary">title</ion-label>
-      <ion-item>
-        <ion-label>{{ m.title }}</ion-label>
-      </ion-item>
+        <ion-label color="primary">title</ion-label>
+        <ion-item>
+          <ion-label>{{ m.title }}</ion-label>
+        </ion-item>
 
-      <ion-label color="primary">id</ion-label>
-      <ion-item>
-        <ion-label>{{ m.id }}</ion-label>
-      </ion-item>
+        <ion-label color="primary">Image Url</ion-label>
+        <ion-item>
+          <ion-label>{{ m.imageUrl }}</ion-label>
+        </ion-item>
+
+        <ion-label color="primary">Ingredients</ion-label>
+        <ion-item *ngFor="let e of m.ingredients">
+          <ion-label>{{ e }}</ion-label>
+        </ion-item>
+
+        <ion-label color="primary">Diet Type</ion-label>
+        <ion-item>
+          <ion-label>{{ m.dietType }}</ion-label>
+        </ion-item>
+
+        <ion-label color="primary">Calories</ion-label>
+        <ion-item>
+          <ion-label>{{ m.calories }}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      -----------------------------------------------------
 
     </ion-list>
-  </ion-list> -->
+  </ion-list>
 
 </ion-content>
