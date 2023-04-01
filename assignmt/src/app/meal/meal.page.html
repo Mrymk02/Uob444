@@ -17,15 +17,18 @@
       <ion-label>Title</ion-label>
       <ion-input [(ngModel)]="title"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Image URL</ion-label>
       <ion-input [(ngModel)]="imageUrl"></ion-input>
     </ion-item>
+
     <ion-item>
       <!-- I think this is supposed to be an array like list of tasks example :) -->
       <ion-label>Ingredients (comma separated)</ion-label>
       <ion-input [(ngModel)]="ingredients"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label>Diet Type</ion-label>
       <ion-select [(ngModel)]="dietType">
@@ -34,11 +37,36 @@
         <ion-select-option value="Non-vegetarian">Non-vegetarian</ion-select-option>
       </ion-select>
     </ion-item>
+    
     <ion-item>
       <ion-label>Calories</ion-label>
       <ion-input [(ngModel)]="calories" type="number"></ion-input>
     </ion-item>
+
+
+    <ion-button expand="block" (click)="addMeal()">Add Meal</ion-button>
+    <ion-button expand="block" (click)="viewMeal()">View Meal</ion-button>
   </ion-list>
 
-  <ion-button expand="block" (click)="addMeal()">Add Meal</ion-button>
+  <!-- <ion-list>
+    <ion-list *ngFor="let m of newMeal">
+
+      <ion-label color="primary">Ingredients</ion-label>
+      <ion-item *ngFor="let e of m.ingredients">
+        <ion-label>{{ e }}</ion-label>
+      </ion-item>
+
+      <ion-label color="primary">title</ion-label>
+      <ion-item>
+        <ion-label>{{ m.title }}</ion-label>
+      </ion-item>
+
+      <ion-label color="primary">id</ion-label>
+      <ion-item>
+        <ion-label>{{ m.id }}</ion-label>
+      </ion-item>
+
+    </ion-list>
+  </ion-list> -->
+
 </ion-content>

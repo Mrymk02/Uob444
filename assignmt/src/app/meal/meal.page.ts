@@ -15,6 +15,8 @@ export class MealPage implements OnInit {
   public dietType = '';
   public calories = '';
 
+  public newMeal: Meal[] =[];
+
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController
@@ -25,7 +27,7 @@ export class MealPage implements OnInit {
   }
 
   addMeal() {
-    const meal: Meal = {
+    const meal = {
       id: Math.floor(Math.random() * 1000) + 1,
       title: this.title,
       imageUrl: this.imageUrl,
@@ -34,14 +36,36 @@ export class MealPage implements OnInit {
       calories: Number(this.calories)
     };
 
+    this.newMeal.push(meal);
 
     this.alertCtrl.create({
       header: 'Meal Added',
       message: `The meal ${meal.title} has been added to your system.`,
-      buttons: ['OK']
+      buttons: 
+      [
+        {
+        text: 'View Meal',
+        handler: () => 
+        {     
+          this.viewMeal();
+        }
+      },
+      {
+        text: 'Close',
+        handler: () => 
+        {     
+
+        }
+      }
+    ]
     }).then(alert => alert.present());
 
     this.navCtrl.pop();
+  }
+
+  viewMeal()
+  {
+
   }
 
 }
