@@ -32,9 +32,9 @@ export class MealPage implements OnInit {
   {
     this.mealForm = this.fb.group
     ({
-      'til':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z_]+)*$')])],
-      'img':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z/.]+)*$')])],
-      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z]+)*$')])],
+      'til':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z ]+([-a-zA-Z]+)*$')])],
+      'img':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z]+([-a-zA-Z/.]+)*$')])],
+      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z]+([-a-zA-Z]+)*$')])],
       'diet':['', Validators.required],
       'cal':['', Validators.compose([Validators.required, Validators.pattern('[1-9]{1,10}')])]
     })
