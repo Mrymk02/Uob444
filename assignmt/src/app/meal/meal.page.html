@@ -28,10 +28,15 @@
     </ion-item>
 
     <!-- ingredients -->
-    <ion-item>
-      <ion-label>Ingredients (comma separated)</ion-label>
-      <ion-input [(ngModel)]="ingredients" formControlName="ing"></ion-input>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label>Ingredients (Use comma to separate each ingredient)</ion-label>
+      </ion-item>
+      
+      <ion-item>
+        <ion-textarea [(ngModel)]="ingredients" formControlName="ing"></ion-textarea>
+      </ion-item>
+    </ion-list>
 
     <!-- diet type -->
     <ion-item>
@@ -55,15 +60,15 @@
   </form>
 
   <!-- viewing meals -->
-  <ion-list *ngIf="show">
+  <!-- <ion-list *ngIf="show">
     <ion-label>Meals Saved:</ion-label>
-    <ion-list *ngFor="let m of newMeal; let i = index">
+    <ion-list *ngFor="let m of newMeal; let i = index"> -->
         <!-- list of clickable meals -->
-        <ion-buttons>
+        <!-- <ion-buttons>
           <ion-button (click)="viewMeal(i)" color="primary">id : {{ m.id }}</ion-button>
         </ion-buttons>
     </ion-list>
-  </ion-list>
+  </ion-list> -->
 
   <!-- viewing meals -->
 <ion-list *ngIf="show">
@@ -77,9 +82,9 @@
 </ion-list>
 
 <!-- selected meal details -->
-<ion-card *ngIf="selectedMeal">
+<ion-card *ngIf="selectedMeal && show">
   <ion-card-header>
-    <ion-card-title>{{ selectedMeal.title }}</ion-card-title>
+    <ion-card-title>{{ selectedMeal.title }}  {{ selectedMeal.id }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-grid>
@@ -97,7 +102,9 @@
       </ion-row>
       <ion-row>
         <ion-col size="3">Ingredients:</ion-col>
-        <ion-col size="9">{{ selectedMeal.ingredients.join(', ') }}</ion-col>
+        <ion-item *ngFor="let s of selectedMeal.ingredients; let i = index">
+          <ion-row size="9">{{ i+1 }} ) {{ s }}</ion-row>
+        </ion-item>
       </ion-row>
       <ion-row>
         <ion-col size="3">Diet Type:</ion-col>

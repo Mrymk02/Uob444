@@ -11,13 +11,12 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 export class MealPage implements OnInit {
   public mealForm : FormGroup;
 
-  public ind = -1;
   public title = '';
   public imageUrl = '';
   public ingredients = '';
   public dietType = '';
   public calories = '';
-  public string ='';
+  // public string ='';
 
   public newMeal: Meal[] =[];
   selectedMeal!: Meal;
@@ -34,10 +33,10 @@ export class MealPage implements OnInit {
     this.mealForm = this.fb.group
     ({
       'til':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z ]+([-a-zA-Z]+)*$')])],
-      'img':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z]+([-a-zA-Z/.]+)*$')])],
-      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z]+([-a-zA-Z]+)*$')])],
+      'img':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z0-9]+([-a-zA-Z/.]+)*$')])],
+      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^ \s,]+[-a-zA-Z0-9, ]+([-a-zA-Z ]+)$')])],
       'diet':['', Validators.required],
-      'cal':['', Validators.compose([Validators.required, Validators.pattern('[1-9]{1,10}')])]
+      'cal':['', Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]{0,9}')])]
     })
   }
 
@@ -84,22 +83,24 @@ export class MealPage implements OnInit {
     this.newMeal.push(meal);
   }
 
-  viewMeal(i:any)
+  // viewMeal(i:any)
+  // {
+  //   // console.log(this.mealForm.valid);
+  //   this.string = '(ID:) ' + this.newMeal[i].id + '\n    (Title:) = ' + this.newMeal[i].title + '\n    (Image Url:) = ' + this.newMeal[i].imageUrl + '\n    (Ingredients:) = \n';
+
+  //   for (let index = 0; index < this.newMeal[i].ingredients.length; index++) {
+  //     this.string += '        ' + (index+1) + ') ' + this.newMeal[i].ingredients[index] + '\n';
+  //   }
+
+  //   this.string += '    (Diet Type:) = ' + this.newMeal[i].dietType + '\n    (Calories:) = ' + this.newMeal[i].calories;
+
+  //   alert(this.string);
+  // }
+
+
+  viewMealcard(index: number) 
   {
-    // console.log(this.mealForm.valid);
-    this.ind = i;
-    this.string = '(ID:) ' + this.newMeal[i].id + '\n    (Title:) = ' + this.newMeal[i].title + '\n    (Image Url:) = ' + this.newMeal[i].imageUrl + '\n    (Ingredients:) = \n';
-
-    for (let index = 0; index < this.newMeal[i].ingredients.length; index++) {
-      this.string += '        ' + (index+1) + ') ' + this.newMeal[i].ingredients[index] + '\n';
-    }
-
-    this.string += '    (Diet Type:) = ' + this.newMeal[i].dietType + '\n    (Calories:) = ' + this.newMeal[i].calories;
-
-    alert(this.string);
-  }
-  viewMealcard(index: number) {
     this.selectedMeal = this.newMeal[index];
-}
+  }
 }
 
