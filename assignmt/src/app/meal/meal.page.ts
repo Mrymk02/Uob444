@@ -24,11 +24,13 @@ export class MealPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private dataService: DataService) {
+    public dataService: DataService) {
      this.meals = this.dataService.getMeals();
     }
 
-
+    ionViewDidEnter() {
+      this.meals = this.dataService.getMeals();
+    }
   ngOnInit() {
       
   }
@@ -43,6 +45,11 @@ export class MealPage implements OnInit {
       calories: Number(this.calories)
       
     };
+      this.newMeal.push(meal)
+      this.dataService.addMeal(meal);
+      console.log(this.newMeal);
+      console.log(this.dataService.meals);
+    
 
 
     this.alertCtrl.create({
