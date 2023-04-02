@@ -29,8 +29,17 @@ export interface Meal
   providedIn: 'root'
 })
 
+
 export class DataService 
 {
+  addMeal(meal: Meal) {
+    this.meals.push(meal);
+  }
+
+  getMeals() {
+    return this.meals;
+  }
+
   public index = -1;
   
   public member= 
@@ -39,7 +48,9 @@ export class DataService
     { name: 'Fahad', age: 21, gender: 'Male', phone: '+966 349837758', diet: 'Normal Diet', dietVal:0, subPlan: '1 month', subPlanVal:100, TotalFees: 100 },
     { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330 }
   ];
+  meals: Meal[] = [];
 
+ 
   constructor( ) 
   { }
 }

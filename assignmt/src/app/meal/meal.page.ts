@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { Meal } from '../data.service';
+import { DataService, Meal } from '../data.service';
 
 @Component({
   selector: 'app-meal',
@@ -8,7 +8,7 @@ import { Meal } from '../data.service';
   styleUrls: ['./meal.page.scss'],
 })
 export class MealPage implements OnInit {
-
+  meals: Meal[]
   public title = '';
   public imageUrl = '';
   public ingredients = '';
@@ -17,8 +17,11 @@ export class MealPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private alertCtrl: AlertController
-  ) {}
+    private alertCtrl: AlertController,
+    private dataService: DataService) {
+     this.meals = this.dataService.getMeals();
+    }
+
 
   ngOnInit() {
       
@@ -32,8 +35,9 @@ export class MealPage implements OnInit {
       ingredients: this.ingredients.split(','),
       dietType: this.dietType,
       calories: Number(this.calories)
+      
     };
-
+    this.dataService.addMeal(meal);
 
     this.alertCtrl.create({
       header: 'Meal Added',

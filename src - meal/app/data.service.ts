@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Meal } from 'src/app/data.service';
 
 // structure
 export interface ListOfMembers 
@@ -14,6 +15,7 @@ export interface ListOfMembers
   TotalFees: number;
 }
 export class AddMealPage {
+  id: number = 0;
   title: string = '';
   imageUrl: string = '';
   ingredients: string = '';
@@ -27,6 +29,7 @@ export class AddMealPage {
 
 export class DataService 
 {
+ 
   public index = -1;
   
   public member= 
@@ -36,12 +39,20 @@ export class DataService
     { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330 }
   ];
 
-  public meal=
+  public meal:Meal[]=
   [
-    { title: 'Chicken', image:'', ingredients: 'Chicken, Salt, Pepper', dietType: 'Low Fat', calories: 300 },
-    { title: 'Salad', image:'', ingredients: 'Lettuce, Tomato, Cucumber', dietType: 'Low Carbs', calories: 100 },
-    { title: 'Pizza', image:'', ingredients: 'Flour, Tomato Sauce, Cheese', dietType: 'Normal Diet', calories: 500 }
+    { id:1,title: 'Chicken', imageUrl:'', ingredients: ['Chicken, Salt, Pepper'], dietType: 'Low Fat', calories: 300 },
+    { id:2,title: 'Salad', imageUrl:'', ingredients: ['Lettuce, Tomato, Cucumber'], dietType: 'Low Carbs', calories: 100 },
+    { id:3,title: 'Pizza', imageUrl:'', ingredients: ['Flour, Tomato Sauce, Cheese'], dietType: 'Normal Diet', calories: 500 }
   ];  
+  addMeal(meal: Meal) {
+    this.meal.push(meal);
+  }
+
+  getMeals() {
+    return this.meal;
+  }
+
   
 
   constructor( ) 
