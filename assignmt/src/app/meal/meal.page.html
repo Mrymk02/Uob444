@@ -86,30 +86,40 @@
   <ion-card-header>
     <ion-card-title>{{ selectedMeal.title }}  {{ selectedMeal.id }}</ion-card-title>
   </ion-card-header>
+
   <ion-card-content>
     <ion-grid>
       <ion-row>
         <ion-col size="3">ID:</ion-col>
         <ion-col size="9">{{ selectedMeal.id }}</ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col size="3">Title:</ion-col>
         <ion-col size="9">{{ selectedMeal.title }}</ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col size="3">Image:</ion-col>
-        <ion-col size="9"><img [src]="selectedMeal.imageUrl" /></ion-col>
+        <ion-row>
+          <ion-col size="9"><img [src]="selectedMeal.imageUrl" /></ion-col>
+        </ion-row>
       </ion-row>
+
       <ion-row>
         <ion-col size="3">Ingredients:</ion-col>
-        <ion-item *ngFor="let s of selectedMeal.ingredients; let i = index">
-          <ion-row size="9">{{ i+1 }} ) {{ s }}</ion-row>
+        <ion-item>
+          <ion-row>
+            <ion-col size="9" *ngFor="let s of selectedMeal.ingredients; let i = index">{{ i+1 }} ) {{ s }}</ion-col>
+          </ion-row>
         </ion-item>
       </ion-row>
+
       <ion-row>
         <ion-col size="3">Diet Type:</ion-col>
         <ion-col size="9">{{ selectedMeal.dietType }}</ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col size="3">Calories:</ion-col>
         <ion-col size="9">{{ selectedMeal.calories }}</ion-col>

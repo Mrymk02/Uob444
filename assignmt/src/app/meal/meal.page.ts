@@ -34,7 +34,7 @@ export class MealPage implements OnInit {
     ({
       'til':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z ]+([-a-zA-Z]+)*$')])],
       'img':['', Validators.compose([Validators.required, Validators.pattern('^[^ \t]+[-a-zA-Z0-9]+([-a-zA-Z/.]+)*$')])],
-      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^ \s,]+[-a-zA-Z0-9, ]+([-a-zA-Z ]+)$')])],
+      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^ ,]+[-a-zA-Z0-9, \n]+([-a-zA-Z \n]+)$')])],
       'diet':['', Validators.required],
       'cal':['', Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]{0,9}')])]
     })
