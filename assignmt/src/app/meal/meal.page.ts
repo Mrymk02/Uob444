@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { Meal } from '../data.service';
+import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,6 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./meal.page.scss'],
 })
 export class MealPage implements OnInit {
-
   public mealForm : FormGroup;
 
   public ind = -1;
@@ -41,6 +40,7 @@ export class MealPage implements OnInit {
     })
   }
 
+
   ngOnInit() {
       
   }
@@ -53,6 +53,7 @@ export class MealPage implements OnInit {
       ingredients: this.ingredients.split(','),
       dietType: this.dietType,
       calories: Number(this.calories)
+      
     };
 
     this.alertCtrl.create({
