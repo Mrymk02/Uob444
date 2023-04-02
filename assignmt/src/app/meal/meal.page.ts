@@ -87,13 +87,13 @@ export class MealPage implements OnInit {
   {
     // console.log(this.mealForm.valid);
     this.ind = i;
-    this.string = '(ID:) ' + this.newMeal[i].id + '    (Title:) = ' + this.newMeal[i].title + '    (Image Url:) = ' + this.newMeal[i].imageUrl + '    (Ingredients:) = ';
+    this.string = '(ID:) ' + this.newMeal[i].id + '\n    (Title:) = ' + this.newMeal[i].title + '\n    (Image Url:) = ' + this.newMeal[i].imageUrl + '\n    (Ingredients:) = \n';
 
     for (let index = 0; index < this.newMeal[i].ingredients.length; index++) {
-      this.string += (index+1) + ') ' + this.newMeal[i].ingredients[index] + '  ';
+      this.string += '        ' + (index+1) + ') ' + this.newMeal[i].ingredients[index] + '\n';
     }
 
-    this.string += '(Diet Type:) = ' + this.newMeal[i].dietType + '    (Calories:) = ' + this.newMeal[i].calories;
+    this.string += '    (Diet Type:) = ' + this.newMeal[i].dietType + '\n    (Calories:) = ' + this.newMeal[i].calories;
 
     alert(this.string);
   }
