@@ -20,6 +20,7 @@ export class MealPage implements OnInit {
   public string ='';
 
   public newMeal: Meal[] =[];
+  selectedMeal!: Meal;
 
   // show or hide view
   public show: boolean = false;
@@ -97,5 +98,8 @@ export class MealPage implements OnInit {
 
     alert(this.string);
   }
-
+  viewMealcard(index: number) {
+    this.selectedMeal = this.newMeal[index];
 }
+}
+
