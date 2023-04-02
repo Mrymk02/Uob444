@@ -32,14 +32,6 @@ export interface Meal
 
 export class DataService 
 {
-  addMeal(meal: Meal) {
-    this.meals.push(meal);
-  }
-
-  getMeals() {
-    return this.meals;
-  }
-
   public index = -1;
   
   public member= 

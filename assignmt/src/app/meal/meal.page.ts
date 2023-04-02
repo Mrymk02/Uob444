@@ -32,11 +32,11 @@ export class MealPage implements OnInit {
   {
     this.mealForm = this.fb.group
     ({
-      'til':['', Validators.required],
-      'img':['', Validators.required],
-      'ing':['', Validators.required],
+      'til':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z_]+)*$')])],
+      'img':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z/.]+)*$')])],
+      'ing':['', Validators.compose([Validators.required, Validators.pattern('^[^\s]+[-a-zA-Z\s]+([-a-zA-Z]+)*$')])],
       'diet':['', Validators.required],
-      'cal':['', Validators.required]
+      'cal':['', Validators.compose([Validators.required, Validators.pattern('[1-9]{1,10}')])]
     })
   }
 
@@ -87,13 +87,13 @@ export class MealPage implements OnInit {
   {
     // console.log(this.mealForm.valid);
     this.ind = i;
-    this.string = 'ID: ' + this.newMeal[i].id + '    Title: ' + this.newMeal[i].title + '    Image Url: ' + this.newMeal[i].imageUrl + '    Ingredients: ';
+    this.string = '(ID:) ' + this.newMeal[i].id + '    (Title:) = ' + this.newMeal[i].title + '    (Image Url:) = ' + this.newMeal[i].imageUrl + '    (Ingredients:) = ';
 
     for (let index = 0; index < this.newMeal[i].ingredients.length; index++) {
-      this.string += (index+1) + ') ' + this.newMeal[i].ingredients[index] + '    ';
+      this.string += (index+1) + ') ' + this.newMeal[i].ingredients[index] + '  ';
     }
 
-    this.string += 'Diet Type: ' + this.newMeal[i].dietType + '    Calories: ' + this.newMeal[i].calories;
+    this.string += '(Diet Type:) = ' + this.newMeal[i].dietType + '    (Calories:) = ' + this.newMeal[i].calories;
 
     alert(this.string);
   }
