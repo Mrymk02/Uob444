@@ -1,3 +1,5 @@
+//no form group used
+
 <ion-header>
   <ion-toolbar>
     <!-- back button to go home (pervious page) -->
@@ -14,29 +16,29 @@
 <ion-content>
 
   <!-- form -->
-  <form [formGroup]="mealForm" (ngSubmit)="addMeal()">
+  <ion-list>
     <!-- title -->
     <ion-item>
       <ion-label>Title</ion-label>
-      <ion-input [(ngModel)]="title" formControlName="til"></ion-input>
+      <ion-input [(ngModel)]="title"></ion-input>
     </ion-item>
 
     <!-- image url -->
     <ion-item>
       <ion-label>Image URL</ion-label>
-      <ion-input [(ngModel)]="imageUrl" formControlName="img"></ion-input>
+      <ion-input [(ngModel)]="imageUrl"></ion-input>
     </ion-item>
 
     <!-- ingredients -->
     <ion-item>
       <ion-label>Ingredients (comma separated)</ion-label>
-      <ion-input [(ngModel)]="ingredients" formControlName="ing"></ion-input>
+      <ion-input [(ngModel)]="ingredients"></ion-input>
     </ion-item>
 
     <!-- diet type -->
     <ion-item>
       <ion-label>Diet Type</ion-label>
-      <ion-select [(ngModel)]="dietType" formControlName="diet">
+      <ion-select [(ngModel)]="dietType">
         <ion-select-option value="Vegetarian">Vegetarian</ion-select-option>
         <ion-select-option value="Vegan">Vegan</ion-select-option>
         <ion-select-option value="Non-vegetarian">Non-vegetarian</ion-select-option>
@@ -46,13 +48,13 @@
     <!-- calories -->
     <ion-item>
       <ion-label>Calories</ion-label>
-      <ion-input [(ngModel)]="calories" type="number" formControlName="cal"></ion-input>
+      <ion-input [(ngModel)]="calories" type="number"></ion-input>
     </ion-item>
 
     <!-- buttons to add or view or hide meals -->
-    <ion-button expand="block" type="submit" [disabled]="!mealForm.valid">Add Meal</ion-button>
-    <ion-button expand="block" (click)="show = !show;">View/Hide Meals</ion-button>
-  </form>
+    <ion-button expand="block" type="submit">Add Meal</ion-button>
+    <ion-button expand="block" (click)="show = !show;">View/Hide Meal</ion-button>
+  </ion-list>
 
   <!-- viewing meals -->
   <ion-list *ngIf="show">
