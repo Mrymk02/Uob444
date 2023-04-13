@@ -1,0 +1,3 @@
+asdasdastd-data-table-cell [numeric]="true"
+
+sdfsdfxFlexFill
