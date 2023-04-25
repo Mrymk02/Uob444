@@ -27,19 +27,19 @@ export class DetailPage implements OnInit {
              ];
 
 
-  public index = -1;
+    public index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
 
   constructor(public ActiveRoute:ActivatedRoute, public DataSrv: DataService) 
   {
     // gets the index from the url
-    this.index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
+    
   }
   // indexes for the selected option
   DT = -1; 
   SP = -1; 
 
   // variable to calculate 
-  TF = 0;
+  TF =this.DataSrv.member[this.index].TotalFees;
 
   save( )
   {
@@ -69,7 +69,17 @@ export class DetailPage implements OnInit {
     this.DataSrv.member.splice(this.index, 1);
   }
 
+  updateTotalFees() {
+    // Calculate the new TotalFees based on the updated values
+     this.TF = this.DataSrv.member[this.index].subPlanVal + this.DataSrv.member[this.index].dietVal;
+  
+    // Update the TotalFees in the data source
+    this.DataSrv.member[this.index].TotalFees = this.TF;
+  }
+  
   ngOnInit( ) 
-  { }
+  { 
+    this.index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
+  }
 
 }

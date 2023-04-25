@@ -81,6 +81,12 @@
       <ion-label>Phone Number:</ion-label>
       <ion-input type="tel" [(ngModel)]="DataSrv.member[index].phone" required></ion-input>
     </ion-item>
+    
+    <ion-item>
+      <ion-label>Total Fees</ion-label>
+      <ion-input type="number" [(ngModel)]="TF" required></ion-input>
+    </ion-item>
+    
 
     <ion-item>
       <ion-label>Diet Type:</ion-label>
@@ -95,6 +101,7 @@
         <ion-select-option *ngFor="let plan of subPlan; let i = index" value="{{i}}">{{plan.name}}</ion-select-option>
       </ion-select>
     </ion-item>
+    
 
     <!-- button to add new member -->
     <ion-button *ngIf="edit" (click)="edit=!edit" expand="full" color="secondary" (click)="save()">
