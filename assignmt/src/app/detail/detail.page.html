@@ -31,18 +31,6 @@
       <ion-label>Phone: {{ DataSrv.member[index].phone }}</ion-label>
     </ion-item>
 
-    
-    <ion-item>
-      <ion-label>Phone: {{ DataSrv.member[index].phone }}</ion-label>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label>Phone: {{ DataSrv.member[index].phone }}</ion-label>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label>Phone: {{ DataSrv.member[index].phone }}</ion-label>
-    </ion-item>
     <ion-item>
       <ion-label>Diet Type: {{ DataSrv.member[index].diet }}</ion-label>
     </ion-item>
@@ -59,6 +47,12 @@
     <ion-button *ngIf="!edit" (click)="edit=!edit" expand="full" color="secondary">
       <ion-icon name="create-outline" slot="start"></ion-icon>
       Edit Member
+    </ion-button>
+
+    <!-- button to select meals -->
+    <ion-button *ngIf="!edit" [routerLink]="['/meal']" expand="full" color="secondary">
+      <ion-icon name="fast-food-outline" slot="start"></ion-icon>
+      Select Meals
     </ion-button>
   </ion-list>
 
@@ -105,6 +99,11 @@
     <!-- button to add new member -->
     <ion-button *ngIf="edit" (click)="edit=!edit" expand="full" color="secondary" (click)="save()">
       save
+    </ion-button>
+
+    <!-- button to delete member -->
+    <ion-button *ngIf="edit" (click)="edit=!edit" expand="full" color="danger" (click)="dlt()">
+      delete
     </ion-button>
   </ion-list>
 

@@ -23,6 +23,7 @@ export class MealPage implements OnInit {
 
   // show or hide view
   public show: boolean = false;
+  public added: boolean = true;
 
 
   constructor

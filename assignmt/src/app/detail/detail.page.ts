@@ -63,6 +63,12 @@ export class DetailPage implements OnInit {
     this.DataSrv.member[this.index].TotalFees = this.TF;
   }
 
+  dlt()
+  {
+    // delete the member
+    this.DataSrv.member.splice(this.index, 1);
+  }
+
   ngOnInit( ) 
   { }
 

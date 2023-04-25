@@ -15,47 +15,45 @@
 
   <!-- form -->
   <form [formGroup]="mealForm" (ngSubmit)="addMeal()">
-    <!-- title -->
-    <ion-item>
-      <ion-label>Title</ion-label>
-      <ion-input [(ngModel)]="title" formControlName="til"></ion-input>
-    </ion-item>
-
-    <!-- image url -->
-    <ion-item>
-      <ion-label>Image URL</ion-label>
-      <ion-input [(ngModel)]="imageUrl" formControlName="img"></ion-input>
-    </ion-item>
-
-    <!-- ingredients -->
-    <ion-list>
+    <ion-list *ngIf="added">
+      <!-- title -->
       <ion-item>
-        <ion-label>Ingredients (Use comma to separate each ingredient)</ion-label>
+        <ion-label>Title</ion-label>
+        <ion-input [(ngModel)]="title" formControlName="til"></ion-input>
+      </ion-item>
+      <!-- image url -->
+      <ion-item>
+        <ion-label>Image URL</ion-label>
+        <ion-input [(ngModel)]="imageUrl" formControlName="img"></ion-input>
+      </ion-item>
+      <!-- ingredients -->
+      <ion-list>
+        <ion-item>
+          <ion-label>Ingredients (Use comma to separate each ingredient)</ion-label>
+        </ion-item>
+      
+        <ion-item>
+          <ion-textarea [(ngModel)]="ingredients" formControlName="ing"></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <!-- diet type -->
+      <ion-item>
+        <ion-label>Diet Type</ion-label>
+        <ion-select [(ngModel)]="dietType" formControlName="diet">
+          <ion-select-option value="Vegetarian">Vegetarian</ion-select-option>
+          <ion-select-option value="Vegan">Vegan</ion-select-option>
+          <ion-select-option value="Non-vegetarian">Non-vegetarian</ion-select-option>
+        </ion-select>
       </ion-item>
       
+      <!-- calories -->
       <ion-item>
-        <ion-textarea [(ngModel)]="ingredients" formControlName="ing"></ion-textarea>
+        <ion-label>Calories</ion-label>
+        <ion-input [(ngModel)]="calories" type="number" formControlName="cal"></ion-input>
       </ion-item>
+      <!-- buttons to add or view or hide meals -->
+      <ion-button expand="block" type="submit" [disabled]="!mealForm.valid">Add Meal</ion-button>
     </ion-list>
-
-    <!-- diet type -->
-    <ion-item>
-      <ion-label>Diet Type</ion-label>
-      <ion-select [(ngModel)]="dietType" formControlName="diet">
-        <ion-select-option value="Vegetarian">Vegetarian</ion-select-option>
-        <ion-select-option value="Vegan">Vegan</ion-select-option>
-        <ion-select-option value="Non-vegetarian">Non-vegetarian</ion-select-option>
-      </ion-select>
-    </ion-item>
-    
-    <!-- calories -->
-    <ion-item>
-      <ion-label>Calories</ion-label>
-      <ion-input [(ngModel)]="calories" type="number" formControlName="cal"></ion-input>
-    </ion-item>
-
-    <!-- buttons to add or view or hide meals -->
-    <ion-button expand="block" type="submit" [disabled]="!mealForm.valid">Add Meal</ion-button>
     <ion-button expand="block" (click)="show = !show;">View/Hide Meals</ion-button>
   </form>
 
@@ -117,7 +115,11 @@
       <ion-row>
         <ion-col size="4"><ion-text color="primary"> Calories:</ion-text></ion-col>
         <ion-col size="9">{{ selectedMeal.calories }}</ion-col>
-      </ion-row>  
+      </ion-row>
+      
+      <ion-row>
+        <ion-col size="9"><ion-button expand="block" color="success"> <ion-icon name="add"></ion-icon> Select</ion-button></ion-col>
+      </ion-row>
     </ion-grid>
   </ion-card-content>
 </ion-card>
