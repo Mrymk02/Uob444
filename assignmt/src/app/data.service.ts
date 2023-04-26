@@ -18,6 +18,7 @@ export interface ListOfMembers
   subPlan: string;
   subPlanVal: number;
   TotalFees: number;
+  top5Meals: Meal[];
 }
 
 // structure
