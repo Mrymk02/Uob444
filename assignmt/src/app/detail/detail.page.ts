@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
+import { Observable } from 'rxjs';
+import { AngularFirestore} from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-detail',
@@ -8,78 +10,94 @@ import { DataService } from '../data.service';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
-
   // enable or disable edit
   public edit: boolean = false;
 
   // an array for subscription plans
   subPlan = [
-              { value: 100, name: '1 month' },
-              { value: 280, name: '3 month' },
-              { value: 500, name: '6 month' }
-            ];
+    { value: 100, name: '1 month' },
+    { value: 280, name: '3 month' },
+    { value: 500, name: '6 month' }
+  ];
 
   // an array for diet types
   dietType = [
-              { value: 0, name: 'Normal Diet' },
-              { value: 50, name: 'Low Carbs' },
-              { value: 30, name: 'Low Fat' }
-             ];
+    { value: 0, name: 'Normal Diet' },
+    { value: 50, name: 'Low Carbs' },
+    { value: 30, name: 'Low Fat' }
+  ];
 
+  public index = Number(this.activeRoute.snapshot.paramMap.get("i"));
 
-    public index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
+  // Initialize an Observable to hold the member data
+  members: Observable<any> | undefined;
+  totalFeesChanged: any;
 
-  constructor(public ActiveRoute:ActivatedRoute, public DataSrv: DataService) 
-  {
-    // gets the index from the url
-    
+  constructor(
+    private activeRoute: ActivatedRoute,
+    public DataSrv: DataService,
+    private firestore: AngularFirestore
+  ) {}
+  ngOnInit() {
+
   }
+
   // indexes for the selected option
-  DT = -1; 
-  SP = -1; 
+  DT = -1;
+  SP = -1;
 
-  // variable to calculate 
-  TF =this.DataSrv.member[this.index].TotalFees;
+  // variable to calculate
+  TF = this.DataSrv.member[this.index].TotalFees;
 
-  save( )
-  {
-    if(this.DT != -1)
-    {
+  save() {
+    if (this.DT != -1) {
       // update diet type
       this.DataSrv.member[this.index].diet = this.dietType[this.DT].name;
       this.DataSrv.member[this.index].dietVal = this.dietType[this.DT].value;
     }
 
-    if(this.SP != -1)
-    {
-    // update sub plan
-    this.DataSrv.member[this.index].subPlan = this.subPlan[this.SP].name;
-    this.DataSrv.member[this.index].subPlanVal = this.subPlan[this.SP].value;
+    if (this.SP != -1) {
+      // update sub plan
+      this.DataSrv.member[this.index].subPlan = this.subPlan[this.SP].name;
+      this.DataSrv.member[this.index].subPlanVal = this.subPlan[this.SP].value;
     }
 
     // calculating the total fees
-    this.TF = this.DataSrv.member[this.index].subPlanVal + this.DataSrv.member[this.index].dietVal;
+    this.TF =
+      this.DataSrv.member[this.index].subPlanVal +
+      this.DataSrv.member[this.index].dietVal;
     // storing total fees into the empty array
     this.DataSrv.member[this.index].TotalFees = this.TF;
+
+    // Update the member data in Firebase
+    const memberId = this.DataSrv.member[this.index]?.id;
+    this.firestore
+      .collection('members')
+      .doc(memberId)
+      .update(this.DataSrv.member[this.index]);
   }
 
-  dlt()
-  {
-    // delete the member
+  dlt() {
+    // delete the member from Firebase
+    const memberId = this.DataSrv.member[this.index]?.id;
+    this.firestore.collection('members').doc(memberId).delete();
+
+    // remove the member from the local array
     this.DataSrv.member.splice(this.index, 1);
   }
 
   updateTotalFees() {
-    // Calculate the new TotalFees based on the updated values
-     this.TF = this.DataSrv.member[this.index].subPlanVal + this.DataSrv.member[this.index].dietVal;
+    // Get the current member object from the data service
+    const member = this.DataSrv.member[this.index];
   
-    // Update the TotalFees in the data source
-    this.DataSrv.member[this.index].TotalFees = this.TF;
-  }
+    // Calculate the new total fees based on the updated values
+    const newTotalFees = member.subPlanVal + member.dietVal;
   
-  ngOnInit( ) 
-  { 
-    this.index = Number( this.ActiveRoute.snapshot.paramMap.get("i") );
+    // If the new total fees are different from the current total fees,
+    // update the current total fees and emit an event to notify listeners
+    if (newTotalFees !== this.TF) {
+      this.TF = newTotalFees;
+      this.totalFeesChanged.emit(this.TF);
+    }
   }
-
 }
