@@ -18,7 +18,7 @@ export interface ListOfMembers
   subPlan: string;
   subPlanVal: number;
   TotalFees: number;
-  top5Meals: Meal[];
+  top5Meals: [];
 }
 
 // structure
@@ -69,9 +69,9 @@ export class DataService {
   
   // public member= 
   // [
-  //   { name: 'Reem', age: 36, gender: 'Female', phone: '+973 39697849', diet: 'Low Fat', dietVal:30, subPlan: '6 months', subPlanVal:500, TotalFees: 530 },
-  //   { name: 'Fahad', age: 21, gender: 'Male', phone: '+966 349837758', diet: 'Normal Diet', dietVal:0, subPlan: '1 month', subPlanVal:100, TotalFees: 100 },
-  //   { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330 }
+  //   { name: 'Reem', age: 36, gender: 'Female', phone: '+973 39697849', diet: 'Low Fat', dietVal:30, subPlan: '6 months', subPlanVal:500, TotalFees: 530, top5Meals: [{id:1,title:'chicken',imageUrl:'https://www.eatwell101.com/wp-content/uploads/2019/04/chicken-and-asparagus-skillet-recipe-2.jpg',ingredients:['chicken','asparagus'],dietType:'Low Fat',calories:200}] },
+  //   { name: 'Fahad', age: 21, gender: 'Male', phone: '+966 349837758', diet: 'Normal Diet', dietVal:0, subPlan: '1 month', subPlanVal:100, TotalFees: 100, top5Meals: [{id:2,title:'burger',imageUrl:'123.com',ingredients:['d','ddd','ddd'],dietType:'vegan',calories:2000}] },
+  //   { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330, top5Meals:  [{id:2,title:'burger',imageUrl:'123.com',ingredients:['d','ddd','ddd'],dietType:'vegan',calories:2000}] },
   // ];
   // addMembersToFirestore() {
   //   // Loop through the array and add each member to the Firestore collection

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-meal',
@@ -29,7 +30,9 @@ export class MealPage implements OnInit {
   constructor
   ( private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private fb: FormBuilder ) 
+    private fb: FormBuilder ,
+    public DataSrv: DataService,
+    public aws: AngularFirestore) 
   {
     this.mealForm = this.fb.group
     ({
@@ -65,7 +68,7 @@ export class MealPage implements OnInit {
         {
         text: 'View All Meals',
         handler: () => 
-        {     
+        {                                                         
           this.show = true;
         }
       },
@@ -82,7 +85,25 @@ export class MealPage implements OnInit {
     // this.navCtrl.pop();
 
     this.newMeal.push(meal);
+    
+// Store newMeal in Firebase
+this.aws.collection(`newMeal`).add(this.newMeal);
+
   }
+  
+  addMealToMember(meal: Meal, memberId: string) {
+    const memberRef = this.aws.collection('members').doc(memberId);
+    const mealsRef = this.aws.collection('meals');
+  
+    // Add the meal to Firebase
+    const mealDocRef = mealsRef.add(meal);
+  
+    // Update the member's top5Meals array with the new meal ID
+    memberRef.update({
+      // top5Meals: this.aws.firestore.FieldValue.arrayUnion(mealDocRef.id)
+    });
+  }
+  
 
   // viewMeal(i:any)
   // {

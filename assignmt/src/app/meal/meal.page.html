@@ -119,9 +119,14 @@
       
       <ion-row>
         <ion-col size="9"><ion-button expand="block" color="success"> <ion-icon name="add"></ion-icon> Select</ion-button></ion-col>
+        <button (click)="addMealToMember(meal, member.id)">Add Meal</button>
+
       </ion-row>
     </ion-grid>
   </ion-card-content>
 </ion-card>
+<!-- <div *ngFor="let mealId of member.top5Meals">
+  <button (click)="viewMealDetails(mealId)">View Meal Details</button>
+</div> -->
 
 </ion-content>
