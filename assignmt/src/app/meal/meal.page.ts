@@ -3,7 +3,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 export interface ListOfMembers 
 {
@@ -88,7 +88,18 @@ export class MealPage implements OnInit {
 
 
   }
-
+public selectedCustomerId = '';
+  getFavoritesForMember(memberId: string): Observable<Meal[]> {
+    return this.aws.collection('favorites', ref => ref.where('memberId', '==', memberId))
+      .valueChanges()
+      .pipe(
+        switchMap((favorites: any[]) => {
+          const mealIds = favorites.map(favorite => favorite.mealId);
+          return this.aws.collection('meals', ref => ref.where('id', 'in', mealIds))
+            .valueChanges() as Observable<Meal[]>;
+        })
+      );
+  }
 
   getMeals(): Observable<Meal[]> {
     return this.aws.collection<Meal>('meals').valueChanges();
@@ -141,15 +152,28 @@ export class MealPage implements OnInit {
 this.aws.collection(`meals`).add(this.newMeal);
 
   }
-  
-  async addMealToMember(meal: Meal, memberId: number) {
-    const memberRef = this.aws.collection('members').doc(String(memberId));
+  async addMealToMember(meal: Meal, memberId: string) {
+    const memberRef = this.aws.collection('members').doc(memberId);
     const mealsRef = this.aws.collection('meals');
+    const mealRef = mealsRef.doc(meal.id.toString());
   
-    // Add the meal to Firebase
-    const mealRef = await mealsRef.add(meal);
-    
+    // Get the member's document
+    const memberDoc = memberRef.get();
+  
+    // Subscribe to the observable to get the actual document snapshot
+    memberDoc.subscribe((doc) => {
+      const favoriteMeals = doc.get('favoriteMeals') || [];
+  
+      // Add the new meal to the list
+      favoriteMeals.push(mealRef.ref);
+  
+      // Update the member's document with the updated list if it has at least one meal
+      if (favoriteMeals.length >-1) {
+        memberRef.update({ favoriteMeals });
+      }
+    });
   }
+  
   
 
   // viewMeal(i:any)
