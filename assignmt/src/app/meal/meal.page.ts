@@ -3,7 +3,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 
 export interface ListOfMembers 
 {
@@ -17,8 +17,7 @@ export interface ListOfMembers
   subPlan: string;
   subPlanVal: number;
   TotalFees: number;
-   top5Meals:Meal [];
-}
+  favoriteMeals: [];}
 
 @Component({
   selector: 'app-meal',
@@ -89,17 +88,15 @@ export class MealPage implements OnInit {
 
   }
 public selectedCustomerId = '';
-  getFavoritesForMember(memberId: string): Observable<Meal[]> {
-    return this.aws.collection('favorites', ref => ref.where('memberId', '==', memberId))
-      .valueChanges()
-      .pipe(
-        switchMap((favorites: any[]) => {
-          const mealIds = favorites.map(favorite => favorite.mealId);
-          return this.aws.collection('meals', ref => ref.where('id', 'in', mealIds))
-            .valueChanges() as Observable<Meal[]>;
-        })
-      );
-  }
+
+// getFavoriteMeals(memberId: string): Observable<string[]> {
+//   // get the member document from Firestore and return the favorite meals array
+//   return this.aws.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
+//     .pipe(map(member => member.favoriteMeals));
+
+// i hate my lifeeeeeeeeeeeeeeee
+// }
+
 
   getMeals(): Observable<Meal[]> {
     return this.aws.collection<Meal>('meals').valueChanges();
