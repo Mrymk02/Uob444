@@ -42,13 +42,28 @@ export class DataService {
   membersCollection: AngularFirestoreCollection<ListOfMembers>;
   members: Observable<ListOfMembers[]>;
 
+  public meal: Meal[] = [];
+  MealsCollection: AngularFirestoreCollection<Meal>;
+  meals: Observable<Meal[]>;
+
   constructor(private afs: AngularFirestore) {
     this.membersCollection = this.afs.collection<ListOfMembers>('members');
     this.members = this.membersCollection.valueChanges();
-
     this.members.subscribe((members: ListOfMembers[]) => {
       this.member = members;
     });
+
+
+
+    this.MealsCollection = this.afs.collection<Meal>('meals');
+    this.meals = this.MealsCollection.valueChanges();
+
+    this.meals.subscribe((meals: Meal[]) => {
+      this.meal = meals;
+    });
+
+
+
   }
 
   addMember(member: ListOfMembers) {
@@ -67,24 +82,7 @@ export class DataService {
 
   public index = -1;
   
-  // public member= 
-  // [
-  //   { name: 'Reem', age: 36, gender: 'Female', phone: '+973 39697849', diet: 'Low Fat', dietVal:30, subPlan: '6 months', subPlanVal:500, TotalFees: 530, top5Meals: [{id:1,title:'chicken',imageUrl:'https://www.eatwell101.com/wp-content/uploads/2019/04/chicken-and-asparagus-skillet-recipe-2.jpg',ingredients:['chicken','asparagus'],dietType:'Low Fat',calories:200}] },
-  //   { name: 'Fahad', age: 21, gender: 'Male', phone: '+966 349837758', diet: 'Normal Diet', dietVal:0, subPlan: '1 month', subPlanVal:100, TotalFees: 100, top5Meals: [{id:2,title:'burger',imageUrl:'123.com',ingredients:['d','ddd','ddd'],dietType:'vegan',calories:2000}] },
-  //   { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330, top5Meals:  [{id:2,title:'burger',imageUrl:'123.com',ingredients:['d','ddd','ddd'],dietType:'vegan',calories:2000}] },
-  // ];
-  // addMembersToFirestore() {
-  //   // Loop through the array and add each member to the Firestore collection
-  //   for (const member of this.member) {
-  //     this.afs.collection('members').add(member)
-  //       .then((docRef) => {
-  //         console.log('Document written with ID: ', docRef.id);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error adding document: ', error);
-  //       });
-  //   }
-  // }
-  
-  meals: Meal[] = [];
+  addMeal(meal: Meal) {
+    return this.MealsCollection.add(meal);
+  }
 }

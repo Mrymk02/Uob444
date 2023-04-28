@@ -69,62 +69,62 @@
   </ion-list> -->
 
   <!-- viewing meals -->
-<ion-list *ngIf="show">
+<ion-list>
   <ion-label>Meals Saved:</ion-label>
   <ion-list *ngFor="let m of newMeal; let i = index">
     <!-- list of clickable meals -->
-    <ion-buttons>
-      <ion-button (click)="viewMealcard(i)" color="primary">id : {{ m.id }}</ion-button>
-    </ion-buttons>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ m.title }}  {{ m.id }}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary" >ID:</ion-text></ion-col>
+              <ion-col size="9">{{ m.id }}</ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary"> Title:</ion-text></ion-col>
+              <ion-col size="9">{{ m.title }}</ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary">Image:</ion-text></ion-col>
+              <ion-col size="9"><img [src]="m.imageUrl" /></ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary"> Ingredients:</ion-text></ion-col>
+              <ion-col size="9" *ngFor="let s of m.ingredients">- {{ s }}</ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary"> Diet Type:</ion-text></ion-col>
+              <ion-col size="9">{{ m.dietType }}</ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col size="4"><ion-text color="primary"> Calories:</ion-text></ion-col>
+              <ion-col size="9">{{ m.calories }}</ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="9"><ion-button expand="block" color="success"> <ion-icon name="add" click=""></ion-icon>Add to Customer</ion-button></ion-col>      
+              <ion-select placeholder="Select a customer">
+                <ion-select-option *ngFor="let customer of member" [value]="customer.id">{{ customer.name }}</ion-select-option>
+              </ion-select>
+              
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
   </ion-list>
 </ion-list>
 
 <!-- selected meal details -->
-<ion-card *ngIf="selectedMeal && show">
-  <ion-card-header>
-    <ion-card-title>{{ selectedMeal.title }}  {{ selectedMeal.id }}</ion-card-title>
-  </ion-card-header>
 
-  <ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary" >ID:</ion-text></ion-col>
-        <ion-col size="9">{{ selectedMeal.id }}</ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary"> Title:</ion-text></ion-col>
-        <ion-col size="9">{{ selectedMeal.title }}</ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary">Image:</ion-text></ion-col>
-        <ion-col size="9"><img [src]="selectedMeal.imageUrl" /></ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary"> Ingredients:</ion-text></ion-col>
-        <ion-col size="9" *ngFor="let s of selectedMeal.ingredients">- {{ s }}</ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary"> Diet Type:</ion-text></ion-col>
-        <ion-col size="9">{{ selectedMeal.dietType }}</ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="4"><ion-text color="primary"> Calories:</ion-text></ion-col>
-        <ion-col size="9">{{ selectedMeal.calories }}</ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col size="9"><ion-button expand="block" color="success"> <ion-icon name="add"></ion-icon> Select</ion-button></ion-col>
-        <button (click)="addMealToMember(meal, member.id)">Add Meal</button>
-
-      </ion-row>
-    </ion-grid>
-  </ion-card-content>
-</ion-card>
 <!-- <div *ngFor="let mealId of member.top5Meals">
   <button (click)="viewMealDetails(mealId)">View Meal Details</button>
 </div> -->

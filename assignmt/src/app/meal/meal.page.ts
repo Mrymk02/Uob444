@@ -2,7 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+
+export interface ListOfMembers 
+{
+  id: any;
+  name: string;
+  age: number;
+  gender: string;
+  phone: string;
+  diet: string;
+  dietVal: number;
+  subPlan: string;
+  subPlanVal: number;
+  TotalFees: number;
+   top5Meals:Meal [];
+}
 
 @Component({
   selector: 'app-meal',
@@ -20,11 +36,23 @@ export class MealPage implements OnInit {
   // public string ='';
 
   public newMeal: Meal[] =[];
+  public meal: Meal[] = [];
+  MealsCollection: AngularFirestoreCollection<Meal>;
+  meals: Observable<Meal[]>;
+ public mealsCollection!: AngularFirestoreCollection<Meal>;
+ membersCollection: AngularFirestoreCollection<ListOfMembers>;
+ members: Observable<ListOfMembers[]>;
+ public member: ListOfMembers[] = [];
+
+  
   selectedMeal!: Meal;
 
   // show or hide view
   public show: boolean = false;
   public added: boolean = true;
+
+
+
 
 
   constructor
@@ -42,11 +70,34 @@ export class MealPage implements OnInit {
       'diet':['', Validators.required],
       'cal':['', Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]{0,9}')])]
     })
+    this.membersCollection = this.aws.collection<ListOfMembers>('members');
+    this.members = this.membersCollection.valueChanges();
+    this.members.subscribe((members: ListOfMembers[]) => {
+      this.member = members;
+    });
+
+
+
+    this.MealsCollection = this.aws.collection<Meal>('meals');
+    this.meals = this.MealsCollection.valueChanges();
+
+    this.meals.subscribe((meals: Meal[]) => {
+      this.meal = meals;
+    });
+
+
+
   }
 
 
+  getMeals(): Observable<Meal[]> {
+    return this.aws.collection<Meal>('meals').valueChanges();
+  }
+
   ngOnInit() {
-      
+    this.getMeals().subscribe(res => {
+      this.newMeal = res;
+    });  
   }
 
   addMeal() {
@@ -87,21 +138,17 @@ export class MealPage implements OnInit {
     this.newMeal.push(meal);
     
 // Store newMeal in Firebase
-this.aws.collection(`newMeal`).add(this.newMeal);
+this.aws.collection(`meals`).add(this.newMeal);
 
   }
   
-  addMealToMember(meal: Meal, memberId: string) {
-    const memberRef = this.aws.collection('members').doc(memberId);
+  async addMealToMember(meal: Meal, memberId: number) {
+    const memberRef = this.aws.collection('members').doc(String(memberId));
     const mealsRef = this.aws.collection('meals');
   
     // Add the meal to Firebase
-    const mealDocRef = mealsRef.add(meal);
-  
-    // Update the member's top5Meals array with the new meal ID
-    memberRef.update({
-      // top5Meals: this.aws.firestore.FieldValue.arrayUnion(mealDocRef.id)
-    });
+    const mealRef = await mealsRef.add(meal);
+    
   }
   
 
@@ -118,6 +165,7 @@ this.aws.collection(`newMeal`).add(this.newMeal);
 
   //   alert(this.string);
   // }
+
 
 
   viewMealcard(index: number) 
