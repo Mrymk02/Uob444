@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 
 
 // structure
 export interface ListOfMembers 
 {
+  favoriteMeals: any;
   id: any;
   name: string;
   age: number;
@@ -37,6 +38,7 @@ export interface Meal
 })
 //
 
+
 export class DataService {
   public member: ListOfMembers[] = [];
   membersCollection: AngularFirestoreCollection<ListOfMembers>;
@@ -65,6 +67,25 @@ export class DataService {
 
 
   }
+  public selectedCustomerId = '';
+
+public getFavoriteMeals(memberId: string): Observable<string[]> {
+  // get the member document from Firestore and return the favorite meals array
+  return this.afs.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
+    .pipe(
+      map(member => {
+        if (member) {
+          console.log(member.favoriteMeals);
+          return member.favoriteMeals;
+        }
+        return [];
+      })
+    );
+}
+
+getMeals(): Observable<Meal[]> {
+  return this.afs.collection<Meal>('meals').valueChanges();
+}
 
   addMember(member: ListOfMembers) {
     return this.membersCollection.add(member);

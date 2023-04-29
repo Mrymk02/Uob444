@@ -114,4 +114,19 @@
     </ion-button>
   </ion-list>
 
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Meals</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let meal of favoriteMEals | async">
+          <ion-label>{{meal}}</ion-label>
+          <ion-label>{{meal}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

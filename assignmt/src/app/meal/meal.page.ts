@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable, map, switchMap } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
+import { Observable, combineLatest, map, mergeMap, switchMap } from 'rxjs';
 
 export interface ListOfMembers 
 {
-  id: any;
+  id: string;
   name: string;
   age: number;
   gender: string;
@@ -89,13 +89,24 @@ export class MealPage implements OnInit {
   }
 public selectedCustomerId = '';
 
-// getFavoriteMeals(memberId: string): Observable<string[]> {
-//   // get the member document from Firestore and return the favorite meals array
-//   return this.aws.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
-//     .pipe(map(member => member.favoriteMeals));
+public getFavoriteMeals(memberId: string): Observable<string[]> {
+  // get the member document from Firestore and return the favorite meals array
+  return this.aws.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
+    .pipe(
+      map(member => {
+        if (member) {
+          return member.favoriteMeals;
+        }
+        return [];
+      })
+    );
+}
 
-// i hate my lifeeeeeeeeeeeeeeee
-// }
+
+
+
+
+  
 
 
   getMeals(): Observable<Meal[]> {

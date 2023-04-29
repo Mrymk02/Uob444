@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
@@ -26,18 +27,62 @@ export class DetailPage implements OnInit {
     { value: 50, name: 'Low Carbs' },
     { value: 30, name: 'Low Fat' }
   ];
-
+public memberID: any;
+  // index of the selected member
+  public member: any;
+  public memberDetails: any;
+  public meal: any;
   public index = Number(this.activeRoute.snapshot.paramMap.get("i"));
 
   // Initialize an Observable to hold the member data
   members: Observable<any> | undefined;
   totalFeesChanged: any;
-
+selectedCustomerId:any;
+public favoriteMEals: any;
   constructor(
     private activeRoute: ActivatedRoute,
     public DataSrv: DataService,
-    private firestore: AngularFirestore
-  ) {}
+    private firestore: AngularFirestore,
+    private navctrl:NavController
+  ) {
+
+//this.activeRoute.snapshot.paramMap.get('id');
+
+    this.selectedCustomerId =  this.index;
+    if(this.selectedCustomerId){
+      console.log(this.selectedCustomerId); // Add this line
+
+      this.firestore.doc<any>('members/' + this.memberID).valueChanges().subscribe(res => {
+        this.member = res;
+      });
+      const dietType = this.member.diet;
+      this.memberDetails = this.member;
+      //step 2 query the meals collection
+      this.favoriteMEals = this.DataSrv.getFavoriteMeals(this.selectedCustomerId);
+    }
+    else{
+      this.navctrl.navigateForward('/members');
+  }
+    
+
+  }
+  // public selectedCustomerId = 'VQzLGuGIr3W9O2PIQTvN';
+
+  
+
+
+
+
+getMember(){
+  this.firestore.doc<any>('members/' + this.memberID).valueChanges().subscribe(res => {
+    this.member = res;
+  });
+}
+
+
+
+
+  
   ngOnInit() {
 
   }
@@ -76,6 +121,9 @@ export class DetailPage implements OnInit {
       .doc(memberId)
       .update(this.DataSrv.member[this.index]);
   }
+
+
+
 
   dlt() {
     // delete the member from Firebase

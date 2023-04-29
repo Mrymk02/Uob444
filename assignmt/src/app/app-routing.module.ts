@@ -23,6 +23,9 @@ const routes: Routes = [
     path: 'meal',
     loadChildren: () => import('./meal/meal.module').then( m => m.MealPageModule)
   },
+  { path: 'detail/:id',
+  loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
+},
 
 ];
 

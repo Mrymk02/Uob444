@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <!-- back button to go home (pervious page) -->
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
 
     <ion-title>
       Add New Meal
+      
     </ion-title>
-  </ion-toolbar>
+  
+
+
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -54,7 +55,7 @@
       <!-- buttons to add or view or hide meals -->
       <ion-button expand="block" type="submit" [disabled]="!mealForm.valid">Add Meal</ion-button>
     </ion-list>
-    <ion-button expand="block" (click)="show = !show;">View/Hide Meals</ion-button>
+    <!-- <ion-button expand="block" (click)="show = !show;">View/Hide Meals</ion-button> -->
   </form>
 
   <!-- viewing meals -->
@@ -112,12 +113,12 @@
 
             <ion-row>
               <ion-col size="9">
-                <ion-button expand="block" color="success" (click)="addMealToMember(m, 'VQzLGuGIr3W9O2PIQTvN')">
+                <ion-button expand="block" color="success" (click)="addMealToMember(m,selectedCustomerId)">
                   <ion-icon name="add"></ion-icon>
                   Add to Customer
                 </ion-button></ion-col>
                 <ion-select placeholder="Select a customer" [(ngModel)]="selectedCustomerId">
-                  <ion-select-option *ngFor="let customer of member;" [value]="customer.id">{{ customer.name }}{{customer.id}}</ion-select-option>
+                  <ion-select-option *ngFor="let customer of member;" value="customer.id">{{ customer.id }}{{customer.name}}</ion-select-option>
                 </ion-select>
 
             </ion-row>

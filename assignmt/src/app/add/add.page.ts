@@ -49,6 +49,7 @@ export class AddPage implements OnInit {
 
   async add() {
     // storing input into the empty array
+    
     this.newMember.name = this.name;
     this.newMember.age = this.age;
     this.newMember.gender = this.gender;
