@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore} from '@angular/fire/compat/firestore';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable, map } from 'rxjs';
-
-
 
 // structure
 export interface ListOfMembers 
 {
-  favoriteMeals: any;
-  id: any;
   name: string;
   age: number;
   gender: string;
@@ -19,7 +12,6 @@ export interface ListOfMembers
   subPlan: string;
   subPlanVal: number;
   TotalFees: number;
-  top5Meals: [];
 }
 
 // structure
@@ -36,74 +28,21 @@ export interface Meal
 @Injectable({
   providedIn: 'root'
 })
-//
 
 
-export class DataService {
-  public member: ListOfMembers[] = [];
-  membersCollection: AngularFirestoreCollection<ListOfMembers>;
-  members: Observable<ListOfMembers[]>;
-
-  public meal: Meal[] = [];
-  MealsCollection: AngularFirestoreCollection<Meal>;
-  meals: Observable<Meal[]>;
-
-  constructor(private afs: AngularFirestore) {
-    this.membersCollection = this.afs.collection<ListOfMembers>('members');
-    this.members = this.membersCollection.valueChanges();
-    this.members.subscribe((members: ListOfMembers[]) => {
-      this.member = members;
-    });
-
-
-
-    this.MealsCollection = this.afs.collection<Meal>('meals');
-    this.meals = this.MealsCollection.valueChanges();
-
-    this.meals.subscribe((meals: Meal[]) => {
-      this.meal = meals;
-    });
-
-
-
-  }
-  public selectedCustomerId = '';
-
-public getFavoriteMeals(memberId: string): Observable<string[]> {
-  // get the member document from Firestore and return the favorite meals array
-  return this.afs.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
-    .pipe(
-      map(member => {
-        if (member) {
-          console.log(member.favoriteMeals);
-          return member.favoriteMeals;
-        }
-        return [];
-      })
-    );
-}
-
-getMeals(): Observable<Meal[]> {
-  return this.afs.collection<Meal>('meals').valueChanges();
-}
-
-  addMember(member: ListOfMembers) {
-    return this.membersCollection.add(member);
-  }
-
-  updateMember(id: string, member: ListOfMembers) {
-    return this.membersCollection.doc(id).update(member);
-  }
-
-  deleteMember(id: string) {
-    return this.membersCollection.doc(id).delete();
-  }
-
-
-
+export class DataService 
+{
   public index = -1;
   
-  addMeal(meal: Meal) {
-    return this.MealsCollection.add(meal);
-  }
+  public member= 
+  [
+    { name: 'Reem', age: 36, gender: 'Female', phone: '+973 39697849', diet: 'Low Fat', dietVal:30, subPlan: '6 months', subPlanVal:500, TotalFees: 530 },
+    { name: 'Fahad', age: 21, gender: 'Male', phone: '+966 349837758', diet: 'Normal Diet', dietVal:0, subPlan: '1 month', subPlanVal:100, TotalFees: 100 },
+    { name: 'Salem', age: 17, gender: 'Male', phone: '+971 555031121', diet: 'Low Carbs', dietVal:50, subPlan: '3 months', subPlanVal:280, TotalFees: 330 }
+  ];
+  meals: Meal[] = [];
+
+ 
+  constructor( ) 
+  { }
 }

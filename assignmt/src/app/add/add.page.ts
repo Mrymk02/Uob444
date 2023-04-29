@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataService, ListOfMembers } from '../data.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AngularFirestore} from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 
 @Component({
@@ -40,16 +37,12 @@ export class AddPage implements OnInit {
               { value: 30, name: 'Low Fat' }
              ];
 
-  constructor(
-    public DataSrv: DataService,
-    public alertCtrl: AlertController,
-    public router: Router,
-    private db: AngularFirestore 
-  ) { }
+  constructor( public DataSrv: DataService, public alertCtrl: AlertController, public router: Router ) 
+  { }
 
-  async add() {
+  async add()
+  {
     // storing input into the empty array
-    
     this.newMember.name = this.name;
     this.newMember.age = this.age;
     this.newMember.gender = this.gender;
@@ -64,9 +57,6 @@ export class AddPage implements OnInit {
     // storing total fees into the empty array
     this.newMember.TotalFees = this.TF;
 
-    // Save the new member object in Firebase
-    this.db.collection('members').add(this.newMember);
-
     // an alert message with actions push or return home
     let alert = this.alertCtrl.create({
       header:'Insert Member',
@@ -77,6 +67,7 @@ export class AddPage implements OnInit {
           text: 'OK',
           handler: () => 
           {     
+            this.DataSrv.member.push(this.newMember);
             this.router.navigateByUrl('/home'); 
           }
         },
@@ -93,6 +84,7 @@ export class AddPage implements OnInit {
     (await alert).present();
   }
 
-  ngOnInit() { }
+  ngOnInit( ) 
+  { }
 
 }

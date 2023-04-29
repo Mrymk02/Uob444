@@ -2,22 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { DataService, Meal } from '../data.service';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
-import { Observable, combineLatest, map, mergeMap, switchMap } from 'rxjs';
-
-export interface ListOfMembers 
-{
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  phone: string;
-  diet: string;
-  dietVal: number;
-  subPlan: string;
-  subPlanVal: number;
-  TotalFees: number;
-  favoriteMeals: [];}
 
 @Component({
   selector: 'app-meal',
@@ -35,15 +19,6 @@ export class MealPage implements OnInit {
   // public string ='';
 
   public newMeal: Meal[] =[];
-  public meal: Meal[] = [];
-  MealsCollection: AngularFirestoreCollection<Meal>;
-  meals: Observable<Meal[]>;
- public mealsCollection!: AngularFirestoreCollection<Meal>;
- membersCollection: AngularFirestoreCollection<ListOfMembers>;
- members: Observable<ListOfMembers[]>;
- public member: ListOfMembers[] = [];
-
-  
   selectedMeal!: Meal;
 
   // show or hide view
@@ -51,15 +26,10 @@ export class MealPage implements OnInit {
   public added: boolean = true;
 
 
-
-
-
   constructor
   ( private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private fb: FormBuilder ,
-    public DataSrv: DataService,
-    public aws: AngularFirestore) 
+    private fb: FormBuilder ) 
   {
     this.mealForm = this.fb.group
     ({
@@ -69,54 +39,11 @@ export class MealPage implements OnInit {
       'diet':['', Validators.required],
       'cal':['', Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]{0,9}')])]
     })
-    this.membersCollection = this.aws.collection<ListOfMembers>('members');
-    this.members = this.membersCollection.valueChanges();
-    this.members.subscribe((members: ListOfMembers[]) => {
-      this.member = members;
-    });
-
-
-
-    this.MealsCollection = this.aws.collection<Meal>('meals');
-    this.meals = this.MealsCollection.valueChanges();
-
-    this.meals.subscribe((meals: Meal[]) => {
-      this.meal = meals;
-    });
-
-
-
   }
-public selectedCustomerId = '';
 
-public getFavoriteMeals(memberId: string): Observable<string[]> {
-  // get the member document from Firestore and return the favorite meals array
-  return this.aws.doc<ListOfMembers>(`members/${memberId}`).valueChanges()
-    .pipe(
-      map(member => {
-        if (member) {
-          return member.favoriteMeals;
-        }
-        return [];
-      })
-    );
-}
-
-
-
-
-
-  
-
-
-  getMeals(): Observable<Meal[]> {
-    return this.aws.collection<Meal>('meals').valueChanges();
-  }
 
   ngOnInit() {
-    this.getMeals().subscribe(res => {
-      this.newMeal = res;
-    });  
+      
   }
 
   addMeal() {
@@ -138,7 +65,7 @@ public getFavoriteMeals(memberId: string): Observable<string[]> {
         {
         text: 'View All Meals',
         handler: () => 
-        {                                                         
+        {     
           this.show = true;
         }
       },
@@ -155,34 +82,7 @@ public getFavoriteMeals(memberId: string): Observable<string[]> {
     // this.navCtrl.pop();
 
     this.newMeal.push(meal);
-    
-// Store newMeal in Firebase
-this.aws.collection(`meals`).add(this.newMeal);
-
   }
-  async addMealToMember(meal: Meal, memberId: string) {
-    const memberRef = this.aws.collection('members').doc(memberId);
-    const mealsRef = this.aws.collection('meals');
-    const mealRef = mealsRef.doc(meal.id.toString());
-  
-    // Get the member's document
-    const memberDoc = memberRef.get();
-  
-    // Subscribe to the observable to get the actual document snapshot
-    memberDoc.subscribe((doc) => {
-      const favoriteMeals = doc.get('favoriteMeals') || [];
-  
-      // Add the new meal to the list
-      favoriteMeals.push(mealRef.ref);
-  
-      // Update the member's document with the updated list if it has at least one meal
-      if (favoriteMeals.length >-1) {
-        memberRef.update({ favoriteMeals });
-      }
-    });
-  }
-  
-  
 
   // viewMeal(i:any)
   // {
@@ -197,7 +97,6 @@ this.aws.collection(`meals`).add(this.newMeal);
 
   //   alert(this.string);
   // }
-
 
 
   viewMealcard(index: number) 
