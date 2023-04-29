@@ -3,12 +3,7 @@
     <ion-title>
       Home
     </ion-title>
-
-    <!-- button to go to add new meal page -->
-    <ion-buttons slot="end">
-      <ion-button routerLink="/meal">Add New Meal</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -25,18 +20,145 @@
     </ion-item>
   </ion-list>
 
-  <!-- another container to display all members in the list -->
-  <ion-list *ngFor="let m of DataSrv.member; let i = index">
-    <ion-item routerLink="/detail/{{i}}">
-      <ion-label>Name: {{ m.name }}</ion-label>
+<ion-button routerLink="/meal">MEALS</ion-button>
+      
+ 
+
+  <ion-modal trigger="insert_member" #insert_modal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="close_insert()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Add Member</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item
+          ><ion-label>Name: </ion-label>
+          <ion-input [(ngModel)]="newMember.name"></ion-input>
+        </ion-item>
+
+        <ion-item
+          ><ion-label>Age: </ion-label>
+          <ion-input [(ngModel)]="newMember.age" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item
+          ><ion-label>Gender: </ion-label>
+          <ion-select [(ngModel)]="newMember.gender">
+            <ion-select-option >Male</ion-select-option>
+            <ion-select-option >Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item
+          ><ion-label>Subscription plan: </ion-label>
+          <ion-select [(ngModel)]="newMember.plan">
+            <ion-select-option value="1">1 month</ion-select-option>
+            <ion-select-option value="3">3 months</ion-select-option>
+            <ion-select-option value="6">6 months</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item
+          ><ion-label>Diet type: </ion-label>
+          <ion-select [(ngModel)]="newMember.diet">
+            <ion-select-option>Normal</ion-select-option>
+            <ion-select-option>Low carbs</ion-select-option>
+            <ion-select-option>Low fat</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <br />
+        <ion-button expand="block" (click)="add_member()">Subscribe</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal #detail_modal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="detail_modal.dismiss()">Back</ion-button>
+          </ion-buttons>
+          <ion-title>Member Detail</ion-title>
+          <ion-buttons slot="end"
+            ><ion-button color="danger" (click)="remove_member(selected_member)"
+              >Remove</ion-button
+            ></ion-buttons
+          >
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label>Name: </ion-label>
+          <ion-input readonly>{{ selected_member.name }}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Age: </ion-label>
+          <ion-input readonly>{{ selected_member.age }}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Gender: </ion-label>
+          <ion-input readonly>{{ selected_member.gender }}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Plan: </ion-label>
+          <ion-select [(ngModel)]="selected_member.plan">
+            <ion-select-option value="1">1 month</ion-select-option>
+            <ion-select-option value="3">3 months</ion-select-option>
+            <ion-select-option value="6">6 months</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Diet: </ion-label>
+          <ion-input readonly>{{ selected_member.diet }}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Fee: </ion-label>
+          <ion-input readonly>{{ dataSrv.fee(selected_member) }}BD</ion-input>
+        </ion-item>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Favorite Meals</ion-card-title>
+            <ion-card-subtitle>{{ selected_member.diet }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item *ngFor="let m of selected_member.meals">
+                <ion-thumbnail slot="start">
+                  <img src="/assets/{{ m.image }}" />
+                </ion-thumbnail>
+                <ion-label>{{ m.title }}</ion-label>
+                <ion-button
+                  slot="end"
+                  fill="clear"
+                  color="danger"
+                  (click)="member_remove_meal(selected_member, m)"
+                  ><ion-icon name="trash"></ion-icon
+                ></ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let m of dataSrv.members; let i = index"
+      (click)="selected_member = dataSrv.members[i]; detail_modal.present();"
+    >
+      {{ m.name }}
     </ion-item>
   </ion-list>
-
-  <!-- Button to go to Add New Member page-->
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button color="primary" routerLink="/add">
-      <ion-icon name ='add'></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
+  
+ <ion-button id="insert_member">
+  <ion-icon name="add"></ion-icon>
+  Add Member
+</ion-button>
 </ion-content>
