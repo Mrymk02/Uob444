@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'; 
 import { DataService } from '../data.service';
-import { ActivatedRoute } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-detail',
@@ -10,56 +9,24 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class DetailPage implements OnInit {
 
-  i = 0;
-  j = 0;
-  hideShow = false;
-
-  constructor(public DataSrv : DataService, public activedRoute : ActivatedRoute, public storage: Storage) 
-  {
-    storage.create();
-  }
+  constructor(private activatedRoute: ActivatedRoute, public DataSrv: DataService) { }
+  /* i is the index of the laptop in the array, 
+  to avoid error when no laptop is selected we :
+  assigned it to type any +  gave it a value of -1 */
+  i:any=-1;
 
   ngOnInit() 
   {
-    this.activedRoute.paramMap.subscribe((params) => 
+    // if no laptop is selected
+    if(this.DataSrv.index == -1)
+    // select the first laptop
+      this.DataSrv.index = 0; 
+    
+    else
     {
-      const data = params.get('index');
-      if (data) 
-      {
-        const parts = data.split('&');
-        this.i = Number(parts[0]);
-        this.j = Number(parts[1]);
-      }
-    });
+      // save laptop index retrieved from url to the index in data service
+      this.i = this.activatedRoute.snapshot.paramMap.get('index');
+      this.DataSrv.index = this.i;
+    }
   }
-
-  CPU = "";
-  RAM = "";
-  Storage = "";
-
-  add(index : number)
-  {
-    this.DataSrv.List[this.i].nav[this.j].nav[index].nav.push
-    ({
-      cpu:this.CPU,
-      ram: this.RAM,
-      storage: this.Storage
-    });
-
-    // reset input
-    this.CPU = "";
-    this.RAM = "";
-    this.Storage = "";
-  }
-
-  save()
-  {
-    this.hideShow=false
-  }
-
-  delete(index : number)
-  {
-    this.DataSrv.List[this.i].nav[this.j].nav[index].nav.splice(index, 1);
-  }
-
 }

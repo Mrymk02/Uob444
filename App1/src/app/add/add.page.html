@@ -1,0 +1,182 @@
+<ion-header [translucent]="true">
+    <!-- back button -->
+    <ion-item>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    </ion-item>
+    <!-- header title -->
+  <ion-toolbar color="success">
+    <ion-title>
+      Edit Laptops
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-buttons slot="end">
+      <!-- route to Home page -->
+      <ion-button color="{{ DataSrv.Color }}" routerLink="/home" routerDirection="back">Home</ion-button>
+      <!-- route to Brand page -->
+      <ion-button color="{{ DataSrv.Color }}" routerLink="/brand" routerDirection="back">Brand</ion-button>
+      <!-- route to Settings page -->
+      <ion-button color="{{ DataSrv.Color }}" routerLink="/settings" routerDirection="back">Settings</ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <!-- segment of two views -->
+  <ion-segment [(ngModel)]="show" color="success">
+    <ion-segment-button value="New"> New </ion-segment-button>
+    <ion-segment-button value="List"> List </ion-segment-button>
+  </ion-segment>
+
+  <!-- switch method to tell which view to hide/show -->
+  <div [ngSwitch]="show">
+    <!-- if segment "New" selected display the following -->
+    <ion-list *ngSwitchCase="'New'">
+      <!-- brand -->
+      <ion-item>
+        <ion-input
+          [(ngModel)]="brand"
+          label="Brand"
+          label-placement="fixed"
+          placeholder="Enter Laptop Brand">
+        </ion-input>
+      </ion-item>
+      <!-- CPU -->
+      <ion-item>
+        <ion-select
+          [(ngModel)]="cpu"
+          label="CPU"
+          interface="action-sheet"
+          placeholder="Select Processor">
+          <ion-select-option value="Intel i3">Intel i3</ion-select-option>
+          <ion-select-option value="Intel i5">Intel i5</ion-select-option>
+          <ion-select-option value="Intel i7">Intel i7</ion-select-option>
+          <ion-select-option value="AMD">AMD</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <!-- GPU -->
+      <ion-item>
+        <ion-select
+          [(ngModel)]="gpu"
+          label="GPU"
+          interface="action-sheet"
+          placeholder="Select Graphics">
+          <ion-select-option value="Nvidia GeForce">Nvidia GeForce</ion-select-option>
+          <ion-select-option value="AMD Radeon">AMD Radeon</ion-select-option>
+          <ion-select-option value="intel iris">intel iris</ion-select-option>
+          <ion-select-option value="Apple M2 Pro">Apple M2 Pro</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <!-- range -->
+      <ion-item>
+        <ion-range
+          [(ngModel)]="ram"
+          label="RAM"
+          min="0"
+          max="16"
+          increment="1"
+          [pin]="true"
+          [(ngModel)]="rangeR">
+          <ion-text slot="start">0</ion-text>
+          <ion-text slot="end">16</ion-text>
+        </ion-range>
+      </ion-item>
+      <div style="padding: 10px;">
+        <ion-label>current range: {{ rangeR }}</ion-label>
+      </div>
+      <!-- range -->
+      <ion-item>
+        <ion-range
+          [(ngModel)]="weight"
+          label="Weight"
+          min="0"
+          max="3"
+          increment="0.5"
+          [pin]="true"
+          [(ngModel)]="rangeW">
+            <ion-text slot="start">0</ion-text>
+            <ion-text slot="end">3</ion-text>
+        </ion-range>
+      </ion-item>
+      <div style="padding: 10px;">
+        <ion-label>current range: {{ rangeW }}</ion-label>
+      </div>
+      <ion-item>
+        <ion-label>Screen Size</ion-label>
+        <ion-radio-group [allowEmptySelection]="true" [(ngModel)]="screen">
+          <ion-radio value="12 inches" checked>12 inch</ion-radio><br />
+          <ion-radio value="13 inches">13 inch</ion-radio><br />
+          <ion-radio value="14 inches">14 inch</ion-radio><br />
+          <ion-radio value="15 inches">15 inch</ion-radio><br />
+        </ion-radio-group>
+      </ion-item>
+      <ion-item>
+        <ion-label>is HD SSD?</ion-label>
+        <ion-toggle [(ngModel)]="storage"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label [(ngModel)]="os">is Windows installed?</ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Manufacturing</ion-label>
+      </ion-item>
+      <ion-item style = "text-align: center;" lines="none">
+        <ion-datetime color="success" [(ngModel)]="date"></ion-datetime>
+      </ion-item>
+      <div style="padding: 10px;">
+        <ion-label>selected date: {{ date | date : "dd/MM/yyyy h:mm a"}}</ion-label>
+      </div>
+    
+      <div style = "text-align: center; padding: 5%">
+        <ion-button fill="outline" color="success" (click)="add()">Add</ion-button>
+      </div>
+    </ion-list>
+
+    <!-- else if segment "List" selected display the following -->
+    <ion-list *ngSwitchCase="'List'">
+      <ion-accordion-group *ngFor="let laptop of DataSrv.List; let i=index">
+        <!-- start of sliding button -->
+        <ion-item-sliding>
+          <!-- delete button on the left -->
+          <ion-item-options side="start">
+            <ion-item-option color="danger" (click)="delete(i)">Delete</ion-item-option>
+          </ion-item-options>
+
+          <!-- laptop details -->
+          <ion-accordion value="first">
+            <ion-item slot="header" color="">
+              <ion-label>{{ laptop.Brand }}</ion-label>
+            </ion-item>
+                  <div class="ion-padding" slot="content">
+                    CPU <ion-label color="primary">{{ laptop.CPU }}</ion-label>
+                    <br>
+                    GPU <ion-label color="primary">{{ laptop.GPU }}</ion-label>
+                    <br>
+                    RAM <ion-label color="primary">{{ laptop.RAM }}</ion-label>
+                    <br>
+                    Weight <ion-label color="primary">{{ laptop.Weight }}</ion-label>
+                    <br>
+                    Screen Size <ion-label color="primary">{{ laptop.Screen }}</ion-label>
+                    <br>
+                    Storage <ion-label color="primary">{{ laptop.Storage }}</ion-label>
+                    <br>
+                    OS <ion-label color="primary">{{ laptop.OS }}</ion-label>
+                    <br>
+                    Manufacturing Date <ion-label color="primary">{{ laptop.ManuDate | date : "dd/MM/yyyy h:mm a"}}</ion-label>
+                  </div>
+          </ion-accordion>
+          <!-- edit button on the right -->
+          <ion-item-options side="end">
+            <ion-item-option color="success" (click)="edit(i)">Edit</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <!-- end of sliding button -->
+      </ion-accordion-group>
+    </ion-list>
+  </div>
+</ion-content>

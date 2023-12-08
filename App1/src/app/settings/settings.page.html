@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-item>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-item>
+  
+  <ion-toolbar color="{{ DataSrv.Color }}" align="center">
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-buttons slot="end">
+      <!-- route to Home page -->
+      <ion-button color="{{ DataSrv.Color }}" routerLink="/home" routerDirection="back">Home</ion-button>
+      <!-- route to Brand page -->
+      <ion-button color="{{ DataSrv.Color }}" routerLink="/brand" routerDirection="back">Brand</ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <!-- dropdown list to select color (theme) -->
+  <ion-item>
+    <!-- two-way binding to save selected color in the service file 
+    interface controls the way the dropdown list appear to the user -->
+    <ion-select
+          [(ngModel)]="DataSrv.Color"
+          label="Select Color"
+          interface="action-sheet">
+          <ion-select-option value="danger">Red</ion-select-option>
+          <ion-select-option value="warning">Yellow</ion-select-option>
+          <ion-select-option value="primary">Blue</ion-select-option>
+          <ion-select-option value="success">Green</ion-select-option>
+          <ion-select-option value="dark" default>Black</ion-select-option>
+        </ion-select>
+  </ion-item>
+</ion-content>

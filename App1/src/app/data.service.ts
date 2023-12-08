@@ -1,43 +1,72 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Storage } from '@ionic/storage';
 
-// export interface laptop 
-// { 
-//   Brand:      String, 
-//   CPU:        String, 
-//   GPU:        String, 
-//   RAM:        Number, 
-//   Weight:     Number, 
-//   Screen:     Number, 
-//   Storage:    boolean, 
-//   OS:         boolean, 
-//   Image:      String, 
-//   ManuDate:   Date 
-// }
+// defined data type as "laptop"
+export interface laptop 
+{
+  Brand: string,
+  CPU: string,
+  GPU: string,
+  RAM: Number,
+  Weight: Number,
+  Screen: Number,
+  Storage: boolean,
+  OS: boolean,
+  Image: string,
+  ManuDate: Date
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
 
-  constructor(public http : HttpClient, public storage : Storage) 
-  { 
-    // create local storage
-    storage.create();
+  // index of the laptop
+  index = -1;
 
-    // subscribe to the observable
-    this.populateList().subscribe(data => {this.List = data as any[]})
-  }
+  // defualt color
+  Color="primary";
+  
+  // array of type laptop with 3 items
+  public List = 
+  [
+    {  
+      Brand: "Dell",
+      CPU: "i7",
+      GPU: "NVIDIA",
+      RAM: "8",
+      Weight: "1.48 kg",
+      Screen: "13 inches",
+      Storage: true,
+      OS: true,
+      Image: "Dell.png",
+      ManuDate: "11/09/2015 12:29 AM"
+    },    
+    {  
+      Brand: "HP",
+      CPU: "i5",
+      GPU: "Intel HD",
+      RAM: "8",
+      Weight: "1.48 kg",
+      Screen: "15 inches",
+      Storage: true,
+      OS: true,
+      Image: "HP.png",
+      ManuDate: "07/30/2022 7:15 PM"
+    },
+    {  
+      Brand: "Lenovo",
+      CPU: "i7",
+      GPU: "NVIDIA",
+      RAM: "8",
+      Weight: "1.48 kg",
+      Screen: "13 inches",
+      Storage: true,
+      OS: true,
+      Image: "Lenovo.png",
+      ManuDate: "09/15/2009 3:00 AM"
+    },
+  ]
 
-  List: any[] = [];
-
-
-  populateList() : Observable <any[]>
-  {
-    // return the observable
-    return this.http.get<any[]>('assets/Import.json');
-  }
-
+  constructor() { }
 }
