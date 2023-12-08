@@ -35,15 +35,21 @@
               <ion-row>
                 <!-- cpu -->
                 <ion-col>
-                  <ion-input label="CPU" placeholder="{{item.cpu}}"     [(ngModel)]="CPU"></ion-input>
+                  <ion-input placeholder="{{item.cpu}}"     [(ngModel)]="CPU"></ion-input>
                 </ion-col>
                 <!-- ram -->
                 <ion-col>
-                  <ion-input label="RAM" placeholder="{{item.ram}}"     [(ngModel)]="RAM"></ion-input>
+                  <ion-input placeholder="{{item.ram}}"     [(ngModel)]="RAM"></ion-input>
                 </ion-col>
                 <!-- hdd -->
                 <ion-col>
-                  <ion-input label="HDD" placeholder="{{item.storage}}" [(ngModel)]="Storage"></ion-input>
+                  <ion-input placeholder="{{item.storage}}" [(ngModel)]="Storage"></ion-input>
+                </ion-col>
+                <!-- delete -->
+                <ion-col>
+                  <ion-item>
+                    <ion-button color="danger" (click)="delete(i)">Delete</ion-button>
+                  </ion-item>
                 </ion-col>
               </ion-row>
             </ion-grid>
