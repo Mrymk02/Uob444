@@ -1,20 +1,86 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Register
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input
+              label="Full Name"
+              label-placement="stacked"
+              placeholder="Enter Full Name Here"
+              [(ngModel)]="name">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input
+              label="Contact Number"
+              label-placement="stacked"
+              type="number"
+              value="0"
+              clear-Input="true"
+              [(ngModel)]="contact">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-button 
+      (click)="save()" 
+      id="present-alert"
+      fill="clear"
+      expand="full">
+      Save
+  </ion-button>
+
+  <ion-alert 
+      trigger="present-alert" 
+      header="Alert" 
+      message="Information Saved" 
+      [buttons]="alertButton">
+    </ion-alert>
+
+  <ion-list>
+    <ion-list-header color="primary">
+      Registered Users
+    </ion-list-header>
+
+    <ion-item *ngFor="let L of List; let i = index;">
+      <ion-label>{{ L.Name }}</ion-label>
+      <ion-button color="secondary" (click)="saveIndex(i)">Edit</ion-button>
+      <ion-button color="danger" (click)="remove(i)">Delete</ion-button>
+    </ion-item>
+
+  </ion-list>
+
+<ion-footer>  
+  <ion-item>
+    <ion-label>#{{ counter }}</ion-label>
+
+    <ion-button 
+        fill="clear" 
+        size="large" 
+        (click)="increment()">
+
+      <ion-icon 
+          name="heart" 
+          size="large" 
+          color="danger">
+      </ion-icon>
+    </ion-button>    
+  </ion-item>
+</ion-footer>
 </ion-content>
