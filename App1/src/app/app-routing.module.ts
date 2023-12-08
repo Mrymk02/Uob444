@@ -12,16 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'brand',
-    loadChildren: () => import('./brand/brand.module').then( m => m.BrandPageModule)
-  },
-  {
     path: 'detail/:index',
     loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
-  },
-  {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
 ];
 
