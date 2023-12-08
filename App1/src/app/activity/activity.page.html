@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>activity</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <input label="Title"                  labelPlacement="stacked"    type="text" >
+  <input label="Date"                   labelPlacement="stacked"    type="text" >
+  <input label="Duration"               labelPlacement="stacked"    type="text" >
+  <input label="Venue"                  labelPlacement="stacked"    type="text" >
+  <input label="Number of participants" labelPlacement="stacked"    type="text" >
+
+    <ion-select label="Topic">
+      <ion-select-option value="Cultural"> Cultural </ion-select-option>
+      <ion-select-option value="Scientific"> Scientific </ion-select-option>
+      <ion-select-option value="Competition"> Competition </ion-select-option>
+      <ion-select-option value="Organization"> Organization </ion-select-option>
+      <ion-select-option value="General"> General </ion-select-option>
+    </ion-select>
+
+  <!-- add activity information -->
+  <ion-button expand="block" (click)="add()"> Add </ion-button>
+  <!-- edit activity information -->
+  <ion-button expand="block" (click)="edit()"> Edit </ion-button>
+  <!-- delete activity information -->
+  <ion-button expand="block" (click)="delete()"> Delete </ion-button>
+
+</ion-content>

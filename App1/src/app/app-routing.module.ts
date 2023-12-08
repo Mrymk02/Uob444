@@ -3,30 +3,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'member',
+    loadChildren: () => import('./member/member.module').then( m => m.MemberPageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'member',
     pathMatch: 'full'
   },
   {
-    path: 'brand',
-    loadChildren: () => import('./brand/brand.module').then( m => m.BrandPageModule)
-  },
-  {
-    // :index is a the one taken from the button clicked
-    path: 'detail/:index',
-    loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
-  },
-  {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
-  },
-  {
-    path: 'add',
-    loadChildren: () => import('./add/add.module').then( m => m.AddPageModule)
+    path: 'activity',
+    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule)
   },
 ];
 

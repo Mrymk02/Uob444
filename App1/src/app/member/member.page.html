@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>member</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <input label="Student ID"    labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="First Name"    labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Last Name"     labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Age"           labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Gender"        labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Major"         labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Phone"         labelPlacement="stacked"    type="text"  value="{{  }}">
+    <input label="Email"         labelPlacement="stacked"    type="text"  value="{{  }}">
+
+    <!-- register member information -->
+      <ion-button expand="block" (click)="register()"> Register </ion-button>
+    <!-- edit member information -->
+      <ion-button expand="block" (click)="edit()"> Edit </ion-button>
+    <!-- delete member information -->
+      <ion-button expand="block" (click)="delete()"> Delete </ion-button>
+
+</ion-content>
