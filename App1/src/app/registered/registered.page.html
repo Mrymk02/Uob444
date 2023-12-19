@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-title>registered</ion-title>
+    <ion-buttons>
+      <ion-back-button>Back</ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<ion-card>
+  <ion-card-content style="background-color: bisque;" >
+    <ion-input readonly="true" label="Student Email: " *ngFor="let a of myArray" value="{{a}}"></ion-input>
+    <ion-input readonly="true" label="Total number: " value="{{myArray.length}}"></ion-input>
+ </ion-card-content >
+</ion-card>
+</ion-content>

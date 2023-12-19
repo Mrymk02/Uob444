@@ -1,0 +1,123 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-back-button slot="start">Back</ion-back-button>
+    <ion-title>members</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="memberForm" (ngSubmit)="AddMember(memberForm.value)">
+    <ion-item>
+      <ion-label position="floating">Student ID:</ion-label>
+      <ion-input formControlName="sID" required></ion-input>
+      <div *ngIf="memberForm.get('sID')?.invalid && memberForm.get('sID')?.touched">
+        <p style="color: red;">Invalid Student ID</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">First Name:</ion-label>
+      <ion-input formControlName="Fname" required></ion-input>
+      <div *ngIf="memberForm.get('Fname')?.invalid && memberForm.get('Fname')?.touched">
+        <p style="color: red;">Invalid First Name</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Name:</ion-label>
+      <ion-input formControlName="Lname" required></ion-input>
+      <div *ngIf="memberForm.get('Lname')?.invalid && memberForm.get('Lname')?.touched">
+        <p style="color: red;">Invalid Last Name</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Age:</ion-label>
+      <ion-input type="number" formControlName="age" required></ion-input>
+      <div *ngIf="memberForm.get('age')?.invalid && memberForm.get('age')?.touched">
+        <p style="color: red;">Invalid Age</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Gender:</ion-label>
+      <ion-radio-group formControlName="gender" required>
+        <ion-radio value="m">
+          <ion-label>Male</ion-label>
+        </ion-radio>
+        <ion-radio value="f">
+          <ion-label>Female</ion-label>
+        </ion-radio>
+      </ion-radio-group>
+      <div *ngIf="memberForm.get('gender')?.invalid && memberForm.get('gender')?.touched">
+        <p style="color: red;">Filed is required.</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Major:</ion-label>
+      <ion-radio-group formControlName="major" required >
+        <ion-radio value="cs">
+          <ion-label>CS</ion-label>
+        </ion-radio>
+        <ion-radio value="se">
+          <ion-label>SE</ion-label>
+        </ion-radio>
+        <ion-radio value="ce">
+          <ion-label>CE</ion-label>
+        </ion-radio>
+      </ion-radio-group>
+      <div *ngIf="memberForm.get('major')?.invalid && memberForm.get('major')?.touched">
+        <p style="color: red;">Filed is required.</p>
+      </div>
+    </ion-item>
+
+  
+    <ion-item>
+      <ion-label position="floating">Email:</ion-label>
+      <ion-input type="email" formControlName="email" required></ion-input>
+      <div *ngIf="memberForm.get('email')?.invalid && memberForm.get('email')?.touched">
+        <p style="color: red;">Invalid Email</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password:</ion-label>
+      <ion-input type="password" formControlName="pass" required></ion-input>
+      <div *ngIf="memberForm.get('pass')?.invalid && memberForm.get('pass')?.touched">
+        <p style="color: red;">Invalid Password</p>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Phone:</ion-label>
+      <ion-input type="tel" formControlName="phone" required></ion-input>
+      <div *ngIf="memberForm.get('phone')?.invalid && memberForm.get('phone')?.touched">
+        <p style="color: red;">Invalid Phone Number</p>
+      </div>
+    </ion-item>  
+
+    <ion-button type="submit" [disabled]="!memberForm.valid" expand="full" full color="success" style="margin-top: 20px;" >Register</ion-button>
+  </form>
+
+   <!-- <ion-list>
+      <ion-item-sliding *ngFor="let m of fb.members$ | async">
+       <ion-item>
+        <ion-label>
+         <ion-input label="Studint ID" value="{{m.sID}}" [(ngModel)]="m.sID"></ion-input>
+         <ion-input label="First Name" value="{{m.Fname}}" [(ngModel)]="m.Fname"></ion-input>
+         <ion-input label="Last Name" value="{{m.Lname}}" [(ngModel)]="m.Lname"></ion-input>
+         <ion-input label="Age" value="{{m.age}}" [(ngModel)]="m.age"></ion-input>
+         <ion-input label="Gender" value="{{m.gender}}" [(ngModel)]="m.gender"></ion-input>
+         <ion-input label="Major" value="{{m.major}}" [(ngModel)]="m.major"></ion-input>
+         <ion-input label="Email" value="{{m.email}}" [(ngModel)]="m.email"></ion-input>
+         <ion-input label="Password" value="{{m.pass}}" [(ngModel)]="m.pass"></ion-input>
+         <ion-input label="Phone" value="{{m.phone}}" [(ngModel)]="m.phone"></ion-input>
+         <ion-button slot="end" (click)="UpdateMembers(m)">Update</ion-button>
+         <ion-button slot="end" color="danger" (click)="DeleteMembers(m)">Delete</ion-button>
+        </ion-label>
+       </ion-item>
+      </ion-item-sliding>
+     </ion-list> -->
+    
+</ion-content>
