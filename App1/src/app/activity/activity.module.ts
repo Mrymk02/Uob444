@@ -3,20 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MembersPageRoutingModule } from './members-routing.module';
+import { ActivityPageRoutingModule } from './activity-routing.module';
 
-import { MembersPage } from './members.page';
+import { ActivityPage } from './activity.page';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    MembersPageRoutingModule,
     ReactiveFormsModule,
+    IonicModule,
+    ActivityPageRoutingModule
   ],
-  declarations: [MembersPage]
+  declarations: [ActivityPage]
 })
-export class MembersPageModule {}
+export class ActivityPageModule {}

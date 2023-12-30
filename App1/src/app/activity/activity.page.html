@@ -1,0 +1,185 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>activity</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <form [formGroup]="AddForm" (ngSubmit)="Add(AddForm.value)">
+    <!-- Title -->
+      <ion-item>
+        <ion-input 
+          label="Title: " 
+          formControlName="Title" 
+          required>
+        </ion-input>
+      </ion-item>
+   
+      <ion-item 
+        *ngIf=" AddForm.controls['Title'].hasError('required') && AddForm.controls['Title'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+   
+    <!-- Date -->
+      <ion-item>
+        <ion-label>Date:</ion-label>  
+      </ion-item>
+
+      <ion-item>
+        <ion-datetime 
+          displayFormat="h:mm A" 
+          pickerFormat ="h mm A" 
+          formControlName="Date" 
+          required>
+        </ion-datetime>
+      </ion-item>
+      
+      <ion-item 
+        *ngIf=" AddForm.controls['Date'].hasError('Date') &&  AddForm.controls['Date'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+   
+    <!-- duration -->
+      <ion-item>
+        <ion-input 
+          label="duration: " 
+          formControlName="duration" 
+          required></ion-input>
+      </ion-item>
+   
+      <ion-item 
+        *ngIf=" AddForm.controls['duration'].hasError('required') &&  AddForm.controls['duration'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+    <!-- venue -->
+      <ion-item>
+        <ion-input 
+          label="venue: " 
+          formControlName="venue" 
+          required>
+        </ion-input>
+      </ion-item>
+   
+      <ion-item 
+        *ngIf=" AddForm.controls['venue'].hasError('required') &&  AddForm.controls['venue'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+   
+   
+    <!-- NumOfParticipants -->
+      <ion-item>
+        <ion-input 
+          label="Number of Participants: " 
+          formControlName="NumOfParticipants" 
+          required>
+        </ion-input>
+      </ion-item>
+   
+      <ion-item 
+        *ngIf=" AddForm.controls['NumOfParticipants'].hasError('required') &&  AddForm.controls['NumOfParticipants'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+           
+    <!-- Topic -->
+      <ion-item>
+        <ion-select 
+          label="Topic" 
+          placeholder="Select Topic" 
+          interface="action-sheet" 
+          formControlName="Topic" 
+          required>
+          <ion-select-option>Cultural</ion-select-option>
+          <ion-select-option>Scientific</ion-select-option>
+          <ion-select-option>Competition</ion-select-option>
+          <ion-select-option>Organization</ion-select-option>
+          <ion-select-option>General</ion-select-option> 
+        </ion-select>
+      </ion-item>
+   
+      <ion-item 
+        *ngIf=" AddForm.controls['Topic'].hasError('required') &&  AddForm.controls['Topic'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+    
+      <ion-button type="submit" expand="block">Add</ion-button> 
+  </form>
+   
+  <ion-card *ngFor="let activity of Fb.activities$ | async">
+    <ion-card-content style="background-color: rgb(159, 203, 245)">
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Title: " 
+        value="{{activity.Title}}" 
+        [(ngModel)]="activity.Title">
+      </ion-input>
+
+      <ion-input 
+        readonly 
+        *ngIf="!isEditMode" 
+        label="Date: " 
+        value="{{activity.Date}}">
+      </ion-input>
+
+      <ion-label *ngIf="isEditMode">Date:</ion-label>
+      <ion-datetime 
+        *ngIf="isEditMode" 
+        displayFormat="h:mm A" 
+        pickerFormat ="h mm A" 
+        [(ngModel)]="activity.Date">
+      </ion-datetime>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Duration: " 
+        value="{{activity.duration}}" 
+        [(ngModel)]="activity.duration">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Venue: " 
+        value="{{activity.venue}}" 
+        [(ngModel)]="activity.venue">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Number of Participants: " 
+        value="{{activity.NumOfParticipants}}" 
+        [(ngModel)]="activity.NumOfParticipants">
+      </ion-input>
+
+      <ion-input 
+        readonly 
+        *ngIf="!isEditMode" 
+        label="Topic: " 
+        value="{{activity.Topic}}">
+      </ion-input>
+
+      <ion-select 
+        *ngIf="isEditMode" 
+        label="Topic" 
+        placeholder="Select Topic" 
+        interface="action-sheet" 
+        [(ngModel)]="activity.Topic">
+
+        <ion-select-option>Cultural</ion-select-option>
+        <ion-select-option>Scientific</ion-select-option>
+        <ion-select-option>Competition</ion-select-option>
+        <ion-select-option>Organization</ion-select-option>
+        <ion-select-option>General</ion-select-option>      
+      </ion-select>
+      
+      <ion-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Cancle' : 'Edit' }}</ion-button>
+      <ion-button color="primary" *ngIf="isEditMode" (click)="EditActivity(activity)">Done</ion-button>
+      <ion-button color="danger" (click)="RemoveActivity(activity)">Delete</ion-button>
+    </ion-card-content>
+  </ion-card> 
+</ion-content>
