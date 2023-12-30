@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FbService } from './fb.service';
+import { FBService } from './fb.service';
 
-describe('FbService', () => {
-  let service: FbService;
+describe('FBService', () => {
+  let service: FBService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FbService);
+    service = TestBed.inject(FBService);
   });
 
   it('should be created', () => {

@@ -1,0 +1,11 @@
+  <!-- route to members page wrap with ion-item & add appropraite description-->
+  <ion-item button routerLink="/members">
+    <ion-icon name="people"></ion-icon>
+    <ion-label>Members</ion-label>
+  </ion-item>
+   
+  <!-- route to activities page -->
+  <ion-item button routerLink="/activities">
+    <ion-icon name="calendar"></ion-icon>
+    <ion-label>Activities</ion-label>
+  </ion-item>

@@ -12,8 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'member',
-    loadChildren: () => import('./member/member.module').then( m => m.MemberPageModule)
+    path: 'members',
+    loadChildren: () => import('./members/members.module').then( m => m.MembersPageModule)
   },
   {
     path: 'activity',

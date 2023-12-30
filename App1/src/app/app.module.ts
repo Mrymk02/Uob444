@@ -1,42 +1,45 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+// for formGroup
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const firebaseConfig = 
-{
-  apiKey: "AIzaSyD7eBaKRY3G1m1iPRApb9nvGJ1JG84Uh3g",
-  authDomain: "tutorial5-e200e.firebaseapp.com",
-  projectId: "tutorial5-e200e",
-  storageBucket: "tutorial5-e200e.appspot.com",
-  messagingSenderId: "1077142784803",
-  appId: "1:1077142784803:web:fc437c6fadad770ebbda96",
-  measurementId: "G-ET02TDLH2P"
+// for Firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+
+// connect to Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAHaBSXAp0JQlkIyiFuLcsZTTJtQvVMqVY",
+  authDomain: "coursesexample-4525f.firebaseapp.com",
+  projectId: "coursesexample-4525f",
+  storageBucket: "coursesexample-4525f.appspot.com",
+  messagingSenderId: "1084371588244",
+  appId: "1:1084371588244:web:f6b6cd3cb8c3f82d3fd081",
+  measurementId: "G-8ZRJ9RLSGK"
 };
 
-@NgModule ({
+@NgModule({
   declarations: [AppComponent],
   imports: 
   [
-   BrowserModule, 
-   IonicModule.forRoot(), 
-   AppRoutingModule,
-   FormsModule,
-   ReactiveFormsModule,
-   // initialize angularfire with credentials from the dashboard
-   provideFirebaseApp(() => initializeApp(firebaseConfig)),
-   // Import the AngularFireDatabaseModule to use database
-   provideFirestore(() => getFirestore()),
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // initialize angularfire with credentials from the dashboard
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    // Import the AngularFireDatabaseModule to use database
+    provideFirestore(() => getFirestore()),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
-
 export class AppModule {}
-

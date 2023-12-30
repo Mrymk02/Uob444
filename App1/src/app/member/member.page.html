@@ -1,0 +1,271 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Members</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <form [formGroup]="RegisterForm" (ngSubmit)="Register(RegisterForm.value)">
+    <!-- Student ID -->
+      <ion-item>
+        <ion-input 
+          label="Student ID: " 
+          formControlName="StudentID" 
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['StudentID'].hasError('required') && RegisterForm.controls['StudentID'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['StudentID'].hasError('pattern') && RegisterForm.controls['StudentID'].touched">
+        <ion-text color="danger">Sorry, only numbers are allowed!</ion-text>
+      </ion-item> 
+
+    <!-- First Name -->
+      <ion-item>
+        <ion-input 
+          label="First Name: " 
+          formControlName="FirstName" 
+          required>
+        </ion-input>
+      </ion-item>
+    
+      <ion-item 
+        *ngIf=" RegisterForm.controls['FirstName'].hasError('required') && RegisterForm.controls['FirstName'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+      <ion-item  
+        *ngIf=" RegisterForm.controls['FirstName'].hasError('pattern') && RegisterForm.controls['FirstName'].touched">
+        <ion-text color="danger">Sorry, only characteres are allowed!</ion-text>
+      </ion-item> 
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['FirstName'].hasError('minlength') && RegisterForm.controls['FirstName'].touched">
+        <ion-text color="danger">Sorry, minimum length is 3!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['FirstName'].hasError('maxlength') && RegisterForm.controls['FirstName'].touched">
+        <ion-text color="danger">Sorry, maximum length is 30!</ion-text>
+      </ion-item>
+
+    <!-- Last Name -->
+      <ion-item>
+        <ion-input 
+          label="Last Name: " 
+          formControlName="LastName" 
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['LastName'].hasError('required') && RegisterForm.controls['LastName'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['LastName'].hasError('pattern') && RegisterForm.controls['LastName'].touched">
+        <ion-text color="danger">Sorry, only characteres are allowed!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['LastName'].hasError('minlength') && RegisterForm.controls['LastName'].touched">
+        <ion-text color="danger">Sorry, minimum length is 3!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['LastName'].hasError('maxlength') && RegisterForm.controls['LastName'].touched">
+        <ion-text color="danger">Sorry, maximum length is 30!</ion-text>
+      </ion-item>
+
+    <!-- Age -->
+      <ion-item>
+        <ion-input 
+          label="Age: " 
+          formControlName="Age" 
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['Age'].hasError('required') && RegisterForm.controls['Age'].touched">
+       <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['Age'].hasError('pattern') && RegisterForm.controls['Age'].touched">
+       <ion-text color="danger">Sorry, only numbers are allowed!</ion-text>
+      </ion-item>
+
+    <!-- Gender -->
+      <ion-item>
+        <ion-select 
+          label="Gender: " 
+          placeholder="Select Gender" 
+          interface="action-sheet" 
+          formControlName="Gender" 
+          required>
+          <ion-select-option>Female</ion-select-option>
+          <ion-select-option>Male</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item 
+        *ngIf=" RegisterForm.controls['Gender'].hasError('required') && RegisterForm.controls['Gender'].touched">
+        <ion-text color="danger">Sorry, this field is required!</ion-text>
+      </ion-item>
+
+    <!-- Major -->
+    <ion-item>
+      <ion-input 
+        label="Major: " 
+        formControlName="Major" 
+        required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Major'].hasError('required') && RegisterForm.controls['Major'].touched">
+      <ion-text color="danger">Sorry, this field is required!</ion-text>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Major'].hasError('pattern') && RegisterForm.controls['Major'].touched">
+      <ion-text color="danger">Sorry, only characteres are allowed!</ion-text>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Major'].hasError('minlength') && RegisterForm.controls['Major'].touched">
+      <ion-text color="danger">Sorry, minimum length is 3!</ion-text>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Major'].hasError('maxlength') && RegisterForm.controls['Major'].touched">
+      <ion-text color="danger">Sorry, maximum length is 30!</ion-text>
+    </ion-item>
+
+    <!-- Phonen Number -->
+    <ion-item>
+      <ion-input 
+        label="Phone Number: " 
+        formControlName="PhoneNumber" 
+        required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['PhoneNumber'].hasError('required') && RegisterForm.controls['PhoneNumber'].touched">
+      <ion-text color="danger">Sorry, this field is required!</ion-text>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['PhoneNumber'].hasError('pattern') && RegisterForm.controls['PhoneNumber'].touched">
+      <ion-text color="danger">Sorry, only numbers are allowed!</ion-text>
+    </ion-item>
+
+    <!-- Email -->
+    <ion-item>
+      <ion-input 
+        label="Email: " 
+        formControlName="Email" 
+        required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Email'].hasError('required') && RegisterForm.controls['Email'].touched">
+      <ion-text color="danger">Sorry, this field is required!</ion-text>
+    </ion-item>
+
+    <ion-item 
+      *ngIf=" RegisterForm.controls['Email'].hasError('pattern') && RegisterForm.controls['Email'].touched">
+      <ion-text color="danger">Sorry, only your university email are allowed!</ion-text>
+    </ion-item>
+
+    <ion-button type="submit" expand="block">Register</ion-button> 
+  </form>
+
+  <ion-card *ngFor="let member of Fb.members$ | async">
+    <ion-card-content style="background-color: rgb(159, 203, 245)">
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Student ID: " 
+        value="{{member.StudentID}}" 
+        [(ngModel)]="member.StudentID">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="First Name: " 
+        value="{{member.FirstName}}" 
+        [(ngModel)]="member.FirstName">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Last Name: " 
+        value="{{member.LastName}}" 
+        [(ngModel)]="member.LastName">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Age: " 
+        value="{{member.Age}}" 
+        [(ngModel)]="member.Age">
+      </ion-input>
+
+      <ion-input 
+        readonly="true" 
+        *ngIf="!isEditMode" 
+        label="Gender: " 
+        value="{{member.Gender}}">
+      </ion-input>
+
+      <ion-select 
+        *ngIf="isEditMode" label="Gender: " 
+        placeholder="Select Gender" 
+        interface="action-sheet" 
+        [(ngModel)]="member.Gender">
+       <ion-select-option>Female</ion-select-option>
+       <ion-select-option>Male</ion-select-option>
+      </ion-select>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Major: " 
+        value="{{member.Major}}" 
+        [(ngModel)]="member.Major">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Phone Number: " 
+        value="{{member.PhoneNumber}}" 
+        [(ngModel)]="member.PhoneNumber">
+      </ion-input>
+
+      <ion-input 
+        [readonly]="!isEditMode" 
+        label="Email: " 
+        value="{{member.Email}}" 
+        [(ngModel)]="member.Email">
+      </ion-input>
+
+      <ion-button color="primary" (click)="toggleEditMode()">{{ isEditMode ? 'Cancle' : 'Edit' }}</ion-button>
+      <ion-button color="primary" *ngIf="isEditMode" (click)="EditMember(member)">Done</ion-button>
+      <ion-button color="danger" (click)="RemoveMember(member)">Delete</ion-button>
+    </ion-card-content>
+  </ion-card>  
+</ion-content>

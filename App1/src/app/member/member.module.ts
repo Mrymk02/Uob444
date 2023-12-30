@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ActivityPageRoutingModule } from './activity-routing.module';
+import { MemberPageRoutingModule } from './member-routing.module';
 
-import { ActivityPage } from './activity.page';
+import { MemberPage } from './member.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { ActivityPage } from './activity.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    ActivityPageRoutingModule
+    MemberPageRoutingModule
   ],
-  declarations: [ActivityPage]
+  declarations: [MemberPage]
 })
-export class ActivityPageModule {}
+export class MemberPageModule {}

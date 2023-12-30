@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-
-// for Firebase
-import { Firestore, collection, collectionData, CollectionReference, DocumentData, DocumentReference } from '@angular/fire/firestore';
-import { getDocs, doc, deleteDoc, updateDoc, docData, setDoc, addDoc, query, where } from '@angular/fire/firestore';
-
-// for observable
+import { DocumentData } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { Firestore, collection, collectionData, CollectionReference, DocumentReference } from '@angular/fire/firestore';
+import { getDocs, doc, deleteDoc, updateDoc, docData, setDoc, addDoc, query, where } from '@angular/fire/firestore';
 
 export interface members
 {
@@ -31,20 +28,23 @@ export interface activities
   Topic : string
 }
 
-@Injectable({
-  providedIn: 'root'
-})
-export class FbService 
+@Injectable ({ providedIn: 'root' })
+
+export class FBService 
 {
   //////////////// Observable array ////////////////
   public members$: Observable<members[]> | undefined;
   public activities$: Observable<activities[]> | undefined;
+  //////////////// Observable array ////////////////
+
 
   //////////////// Collection reference ////////////////
   membersCollection: CollectionReference<DocumentData>;
   activitiesCollection: CollectionReference<DocumentData>;
+  //////////////// Collection reference ////////////////
 
-  //////////////// constructor ////////////////
+
+//////////////////////////////////////// constructor ////////////////////////////////////////
   constructor( public firestore: Firestore ) 
   {
     // get a reference to the members collection
@@ -56,29 +56,31 @@ export class FbService
     // get activities as observable
     this.getActivities();   
   }
+//////////////////////////////////////// constructor ////////////////////////////////////////
 
-  //////////////// get members as observable ////////////////
+
+// get members as observable
   async getMembers()
   {
     const q = query(collection(this.firestore,'members'));
     this.members$ = collectionData(q, {idField: 'id',}) as Observable<members[]>;
   }
 
-  //////////////// get activities as observable ////////////////
+// get activities as observable
   async getActivities()
   {
     const q = query(collection(this.firestore,'activities'));
     this.activities$ = collectionData(q, {idField: 'id',}) as Observable<activities[]>;
   }
 
-  //////////////// register member to firestore ////////////////
-  async addMember( member: members ): Promise<DocumentReference>
+// Create Data in Firestore with Add()
+  addMembers(member: members): Promise<DocumentReference>
   {
     return addDoc(collection(this.firestore, 'members'), member);
   }
-  
-  ///// Update Document Data in Firestore with updateDoc() /////
-  updateMember(member:members): Promise<void>
+    
+// Create members in Firestore with updateDoc()
+  updateMembers(member:members): Promise<void>
   {
     return updateDoc(doc(this.firestore, 'members', member.id), 
     {
@@ -92,36 +94,36 @@ export class FbService
      Email : member.Email
     });
   }
-
-  ///// Delete Document Data in Firestore with deleteDoc() /////
-  deleteMember(member:members): Promise<void> 
+     
+// Delete Document Data in Firestore with deleteDoc()
+  deleteMembers(member:members): Promise<void> 
   {
     return deleteDoc(doc(this.firestore, 'members', member.id));
   }
 
-  //////////////// add activity to firestore ////////////////
-  addActivity(activity: activities): Promise<DocumentReference>
+// Create Data in Firestore with Add()
+  addActivities(activity: activities): Promise<DocumentReference>
   {
     return addDoc( collection(this.firestore, 'activities'), activity);
   }
-
-  //////////////// update activity to firestore ////////////////
-  updateActivity(activity:activities): Promise<void>
+    
+// Create activities in Firestore with updateDoc()
+  updateActivities(activity:activities): Promise<void>
   {
-    return updateDoc(doc(this.firestore, 'activities', activity.id), 
-    {
-      Title : activity.Title,
-      Date : activity.Date, 
-      duration : activity.duration, 
-      venue : activity.venue, 
-      NumOfParticipants : activity.NumOfParticipants,
-      Topic : activity.Topic
+    return updateDoc(doc(this.firestore, 'activities', activity.id), {
+     Title: activity.Title,
+     Date : activity.Date, 
+     duration: activity.duration, 
+     venue: activity.venue, 
+     NumOfParticipants: activity.NumOfParticipants,
+     Topic: activity.Topic
     });
   }
-
-  //////////////// delete activity to firestore ////////////////
-  deleteActivity(activity:activities): Promise<void> 
+          
+// Delete Document Data in Firestore with deleteDoc()
+  deleteActivities(activity:activities): Promise<void> 
   {
     return deleteDoc(doc(this.firestore, 'activities', activity.id));
   }
 }
+        
